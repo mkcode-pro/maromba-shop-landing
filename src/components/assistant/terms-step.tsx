@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
 
@@ -8,11 +8,10 @@ interface TermsStepProps {
 
 export function TermsStep({ onAccept }: TermsStepProps) {
   const [hasScrolledToEnd, setHasScrolledToEnd] = useState(false);
-  const scrollAreaRef = useRef<HTMLDivElement>(null);
-
-  const handleScroll = (event: React.UIEvent<HTMLDivElement>) => {
-    const { scrollTop, scrollHeight, clientHeight } = event.currentTarget;
-    const isAtBottom = scrollTop + clientHeight >= scrollHeight - 10;
+  
+  const checkScrollPosition = (element: HTMLDivElement) => {
+    const { scrollTop, scrollHeight, clientHeight } = element;
+    const isAtBottom = scrollTop + clientHeight >= scrollHeight - 20;
     setHasScrolledToEnd(isAtBottom);
   };
 
@@ -72,14 +71,16 @@ ATENÇÃO: Este assistente NÃO substitui acompanhamento médico. Procure sempre
         </p>
       </div>
 
-      <ScrollArea 
-        className="flex-1 border rounded-lg p-4 mb-6"
-        onScrollCapture={handleScroll}
-      >
-        <div className="text-sm leading-relaxed whitespace-pre-line">
-          {termsText}
-        </div>
-      </ScrollArea>
+      <div className="flex-1 relative mb-6">
+        <ScrollArea 
+          className="h-full border rounded-lg"
+          onScrollCapture={(e) => checkScrollPosition(e.currentTarget)}
+        >
+          <div className="p-4 text-sm leading-relaxed whitespace-pre-line">
+            {termsText}
+          </div>
+        </ScrollArea>
+      </div>
 
       <Button
         onClick={onAccept}

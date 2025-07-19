@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { X } from "lucide-react";
-import { Dialog, DialogContent } from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { TermsStep } from "./terms-step";
 import { ProfileFormStep, type ProfileData } from "./profile-form-step";
@@ -42,8 +42,12 @@ export function AssistantModal({ open, onOpenChange }: AssistantModalProps) {
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="max-w-full h-screen m-0 p-0 rounded-none border-0">
-        <div className="relative flex flex-col h-full bg-background">
+      <DialogContent className="max-w-full h-screen m-0 p-0 rounded-none border-0 overflow-hidden">
+        <DialogTitle className="sr-only">Assistente Maromba</DialogTitle>
+        <DialogDescription className="sr-only">
+          Assistente inteligente para orientações sobre protocolos de musculação
+        </DialogDescription>
+        <div className="relative flex flex-col h-full bg-background overflow-hidden">
           {/* Close Button */}
           <Button
             variant="ghost"
