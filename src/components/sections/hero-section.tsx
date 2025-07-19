@@ -1,11 +1,14 @@
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { MessageCircle } from "lucide-react";
+import { AssistantModal } from "@/components/assistant/assistant-modal";
 import mascotImage from "@/assets/robozinho-maromba.png";
 
 export function HeroSection() {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
   const handleChatClick = () => {
-    // Scroll suave para a seção de produtos ou abrir chat
-    console.log("Abrir chat com assistente");
+    setIsModalOpen(true);
   };
 
   return (
@@ -48,6 +51,11 @@ export function HeroSection() {
           </div>
         </div>
       </div>
+      
+      <AssistantModal 
+        open={isModalOpen} 
+        onOpenChange={setIsModalOpen}
+      />
     </section>
   );
 }
