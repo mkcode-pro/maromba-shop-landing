@@ -1,6 +1,8 @@
-import { useState } from "react";
+
+import { useState, useEffect, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import { ChevronDown, Check } from "lucide-react";
 
 interface TermsStepProps {
   onAccept: () => void;
@@ -8,14 +10,47 @@ interface TermsStepProps {
 
 export function TermsStep({ onAccept }: TermsStepProps) {
   const [hasScrolledToEnd, setHasScrolledToEnd] = useState(false);
+  const [scrollProgress, setScrollProgress] = useState(0);
+  const scrollAreaRef = useRef<HTMLDivElement>(null);
+  const contentRef = useRef<HTMLDivElement>(null);
   
-  const checkScrollPosition = (viewport: HTMLDivElement) => {
-    const { scrollTop, scrollHeight, clientHeight } = viewport;
-    const isAtBottom = scrollTop + clientHeight >= scrollHeight - 10;
-    if (isAtBottom && !hasScrolledToEnd) {
-      setHasScrolledToEnd(true);
-    }
-  };
+  useEffect(() => {
+    const scrollElement = scrollAreaRef.current?.querySelector('[data-radix-scroll-area-viewport]') as HTMLDivElement;
+    
+    if (!scrollElement) return;
+
+    const handleScroll = () => {
+      const { scrollTop, scrollHeight, clientHeight } = scrollElement;
+      const maxScroll = scrollHeight - clientHeight;
+      
+      if (maxScroll <= 0) {
+        // Conteúdo não é scrollável, habilitar botão imediatamente
+        setHasScrolledToEnd(true);
+        setScrollProgress(100);
+        return;
+      }
+      
+      const progress = Math.min((scrollTop / maxScroll) * 100, 100);
+      setScrollProgress(progress);
+      
+      // Considerar "fim" quando chegou a 95% ou mais
+      const isAtEnd = progress >= 95;
+      
+      if (isAtEnd && !hasScrolledToEnd) {
+        setHasScrolledToEnd(true);
+      }
+    };
+
+    // Verificar imediatamente se o conteúdo é scrollável
+    handleScroll();
+    
+    scrollElement.addEventListener('scroll', handleScroll, { passive: true });
+    
+    // Cleanup
+    return () => {
+      scrollElement.removeEventListener('scroll', handleScroll);
+    };
+  }, [hasScrolledToEnd]);
 
   const termsText = `
 TERMO DE RESPONSABILIDADE E ISENÇÃO DE RESPONSABILIDADE
@@ -69,20 +104,42 @@ ATENÇÃO: Este assistente NÃO substitui acompanhamento médico. Procure sempre
           Termo de Responsabilidade
         </h2>
         <p className="text-muted-foreground text-sm sm:text-base">
-          Leia atentamente e role até o final para continuar
+          Leia atentamente todo o conteúdo abaixo
         </p>
       </div>
 
-      <div className="flex-1 mb-4 sm:mb-6 min-h-0">
-        <ScrollArea className="h-full border rounded-lg bg-background">
+      {/* Progress Indicator */}
+      <div className="mb-4">
+        <div className="flex items-center justify-between text-sm text-muted-foreground mb-2">
+          <span>Progresso da leitura</span>
+          <span>{Math.round(scrollProgress)}%</span>
+        </div>
+        <div className="w-full bg-secondary rounded-full h-2">
           <div 
+            className="bg-primary h-2 rounded-full transition-all duration-300"
+            style={{ width: `${scrollProgress}%` }}
+          />
+        </div>
+      </div>
+
+      <div className="flex-1 mb-4 sm:mb-6 min-h-0">
+        <ScrollArea ref={scrollAreaRef} className="h-full border rounded-lg bg-background">
+          <div 
+            ref={contentRef}
             className="p-4 text-xs sm:text-sm leading-relaxed whitespace-pre-line"
-            onScroll={(e) => checkScrollPosition(e.currentTarget)}
           >
             {termsText}
           </div>
         </ScrollArea>
       </div>
+
+      {/* Scroll Indicator */}
+      {!hasScrolledToEnd && (
+        <div className="flex items-center justify-center mb-2 text-muted-foreground animate-bounce">
+          <ChevronDown className="h-4 w-4 mr-2" />
+          <span className="text-sm">Role para baixo para continuar</span>
+        </div>
+      )}
 
       <Button
         onClick={onAccept}
@@ -90,7 +147,14 @@ ATENÇÃO: Este assistente NÃO substitui acompanhamento médico. Procure sempre
         className="w-full"
         size="lg"
       >
-        {hasScrolledToEnd ? "Li e Aceito" : "Role até o final para continuar"}
+        {hasScrolledToEnd ? (
+          <>
+            <Check className="mr-2 h-4 w-4" />
+            Li e Aceito
+          </>
+        ) : (
+          "Role até o final para continuar"
+        )}
       </Button>
     </div>
   );
