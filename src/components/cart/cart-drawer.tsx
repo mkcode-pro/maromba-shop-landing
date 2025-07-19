@@ -14,9 +14,10 @@ import { products } from "@/data/products";
 interface CartDrawerProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
+  onGoToCheckout: () => void;
 }
 
-export function CartDrawer({ open, onOpenChange }: CartDrawerProps) {
+export function CartDrawer({ open, onOpenChange, onGoToCheckout }: CartDrawerProps) {
   const { cartItems, updateQuantity, removeFromCart } = useCartContext();
 
   const getProductById = (productId: string) => {
@@ -119,7 +120,11 @@ export function CartDrawer({ open, onOpenChange }: CartDrawerProps) {
               <span className="text-primary">R$ {subtotal.toFixed(2)}</span>
             </div>
             
-            <Button className="w-full" size="lg">
+            <Button 
+              className="w-full" 
+              size="lg"
+              onClick={onGoToCheckout}
+            >
               Ir para o Pagamento
             </Button>
           </DrawerFooter>
