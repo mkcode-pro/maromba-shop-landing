@@ -9,10 +9,12 @@ interface TermsStepProps {
 export function TermsStep({ onAccept }: TermsStepProps) {
   const [hasScrolledToEnd, setHasScrolledToEnd] = useState(false);
   
-  const checkScrollPosition = (element: HTMLDivElement) => {
-    const { scrollTop, scrollHeight, clientHeight } = element;
-    const isAtBottom = scrollTop + clientHeight >= scrollHeight - 20;
-    setHasScrolledToEnd(isAtBottom);
+  const checkScrollPosition = (viewport: HTMLDivElement) => {
+    const { scrollTop, scrollHeight, clientHeight } = viewport;
+    const isAtBottom = scrollTop + clientHeight >= scrollHeight - 10;
+    if (isAtBottom && !hasScrolledToEnd) {
+      setHasScrolledToEnd(true);
+    }
   };
 
   const termsText = `
@@ -73,7 +75,10 @@ ATENÇÃO: Este assistente NÃO substitui acompanhamento médico. Procure sempre
 
       <div className="flex-1 mb-4 sm:mb-6 min-h-0">
         <ScrollArea className="h-full border rounded-lg bg-background">
-          <div className="p-4 text-xs sm:text-sm leading-relaxed whitespace-pre-line">
+          <div 
+            className="p-4 text-xs sm:text-sm leading-relaxed whitespace-pre-line"
+            onScroll={(e) => checkScrollPosition(e.currentTarget)}
+          >
             {termsText}
           </div>
         </ScrollArea>
