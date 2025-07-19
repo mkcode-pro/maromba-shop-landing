@@ -3,9 +3,10 @@ import { Badge } from "@/components/ui/badge";
 
 interface HeaderProps {
   cartItemsCount: number;
+  onCartClick: () => void;
 }
 
-export function Header({ cartItemsCount }: HeaderProps) {
+export function Header({ cartItemsCount, onCartClick }: HeaderProps) {
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-background shadow-header">
       <div className="container mx-auto px-4 py-3 flex items-center justify-between">
@@ -21,7 +22,10 @@ export function Header({ cartItemsCount }: HeaderProps) {
 
         {/* Carrinho */}
         <div className="relative">
-          <button className="relative p-2 hover:bg-pharma-light rounded-lg transition-colors">
+          <button 
+            onClick={onCartClick}
+            className="relative p-2 hover:bg-pharma-light rounded-lg transition-colors"
+          >
             <ShoppingCart className="h-6 w-6 text-pharma-dark" />
             {cartItemsCount > 0 && (
               <Badge 

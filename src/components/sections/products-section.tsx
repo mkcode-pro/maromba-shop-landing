@@ -1,11 +1,9 @@
 import { ProductCard } from "@/components/ui/product-card";
 import { products, categories } from "@/data/products";
+import { useCartContext } from "@/contexts/cart-context";
 
-interface ProductsSectionProps {
-  onAddToCart: (productId: string) => void;
-}
-
-export function ProductsSection({ onAddToCart }: ProductsSectionProps) {
+export function ProductsSection() {
+  const { addToCart } = useCartContext();
   return (
     <section className="py-12 px-4">
       <div className="container mx-auto space-y-16">
@@ -44,7 +42,7 @@ export function ProductsSection({ onAddToCart }: ProductsSectionProps) {
                     originalPrice={product.originalPrice}
                     discountPrice={product.discountPrice}
                     discountPercentage={product.discountPercentage}
-                    onAddToCart={() => onAddToCart(product.id)}
+                    onAddToCart={() => addToCart(product.id)}
                   />
                 ))}
               </div>
