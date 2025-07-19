@@ -61,22 +61,19 @@ ATENÇÃO: Este assistente NÃO substitui acompanhamento médico. Procure sempre
   `;
 
   return (
-    <div className="flex flex-col h-full p-6">
-      <div className="text-center mb-6">
-        <h2 className="text-2xl font-bold text-pharma-dark mb-2">
+    <div className="flex flex-col h-screen p-4 sm:p-6">
+      <div className="text-center mb-4 sm:mb-6">
+        <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-2">
           Termo de Responsabilidade
         </h2>
-        <p className="text-muted-foreground">
+        <p className="text-muted-foreground text-sm sm:text-base">
           Leia atentamente e role até o final para continuar
         </p>
       </div>
 
-      <div className="flex-1 relative mb-6">
-        <ScrollArea 
-          className="h-full border rounded-lg"
-          onScrollCapture={(e) => checkScrollPosition(e.currentTarget)}
-        >
-          <div className="p-4 text-sm leading-relaxed whitespace-pre-line">
+      <div className="flex-1 mb-4 sm:mb-6 min-h-0">
+        <ScrollArea className="h-full border rounded-lg bg-background">
+          <div className="p-4 text-xs sm:text-sm leading-relaxed whitespace-pre-line">
             {termsText}
           </div>
         </ScrollArea>
