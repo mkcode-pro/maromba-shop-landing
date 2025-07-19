@@ -1,12 +1,24 @@
-// Update this page (the content is just a fallback if you fail to update the page)
+import { Header } from "@/components/layout/header";
+import { Footer } from "@/components/layout/footer";
+import { HeroSection } from "@/components/sections/hero-section";
+import { BrandsSection } from "@/components/sections/brands-section";
+import { ProductsSection } from "@/components/sections/products-section";
+import { useCart } from "@/hooks/use-cart";
 
 const Index = () => {
+  const { addToCart, getTotalItems } = useCart();
+
   return (
-    <div className="min-h-screen flex items-center justify-center bg-background">
-      <div className="text-center">
-        <h1 className="text-4xl font-bold mb-4">Welcome to Your Blank App</h1>
-        <p className="text-xl text-muted-foreground">Start building your amazing project here!</p>
-      </div>
+    <div className="min-h-screen bg-background">
+      <Header cartItemsCount={getTotalItems()} />
+      
+      <main>
+        <HeroSection />
+        <BrandsSection />
+        <ProductsSection onAddToCart={addToCart} />
+      </main>
+      
+      <Footer />
     </div>
   );
 };

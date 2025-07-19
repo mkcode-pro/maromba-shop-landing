@@ -52,6 +52,15 @@ export default {
 					DEFAULT: 'hsl(var(--card))',
 					foreground: 'hsl(var(--card-foreground))'
 				},
+				// Cores personalizadas do Império Farma
+				pharma: {
+					yellow: 'hsl(var(--pharma-yellow))',
+					'yellow-foreground': 'hsl(var(--pharma-yellow-foreground))',
+					red: 'hsl(var(--pharma-red))',
+					'red-foreground': 'hsl(var(--pharma-red-foreground))',
+					dark: 'hsl(var(--pharma-dark))',
+					light: 'hsl(var(--pharma-light))'
+				},
 				sidebar: {
 					DEFAULT: 'hsl(var(--sidebar-background))',
 					foreground: 'hsl(var(--sidebar-foreground))',
@@ -67,6 +76,19 @@ export default {
 				lg: 'var(--radius)',
 				md: 'calc(var(--radius) - 2px)',
 				sm: 'calc(var(--radius) - 4px)'
+			},
+			backgroundImage: {
+				'hero-gradient': 'var(--gradient-hero)',
+				'card-gradient': 'var(--gradient-card)'
+			},
+			boxShadow: {
+				'card': 'var(--shadow-card)',
+				'header': 'var(--shadow-header)',
+				'button': 'var(--shadow-button)'
+			},
+			transitionProperty: {
+				'all': 'var(--transition-all)',
+				'transform': 'var(--transition-transform)'
 			},
 			keyframes: {
 				'accordion-down': {
