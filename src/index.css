@@ -124,4 +124,14 @@
   body {
     @apply bg-background text-foreground;
   }
+
+  /* Prevent horizontal scroll */
+  html, body {
+    @apply overflow-x-hidden;
+  }
+
+  /* Ensure no content overflows horizontally */
+  .container, .max-w-6xl, .max-w-4xl, .max-w-2xl {
+    @apply max-w-full px-4;
+  }
 }

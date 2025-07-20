@@ -1,4 +1,6 @@
 import { useState } from "react";
+import { ArrowLeft } from "lucide-react";
+import { Button } from "@/components/ui/button";
 import { Header } from "@/components/layout/header";
 import { HeroSection } from "@/components/sections/hero-section";
 import { BrandsSection } from "@/components/sections/brands-section";
@@ -26,6 +28,12 @@ function IndexContent() {
     }, 100);
   };
 
+  const handleBackToShopping = () => {
+    setIsCheckoutVisible(false);
+    // Rolar para o topo da página
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
   const handleBrandSelect = (brandId: string | undefined) => {
     setSelectedBrand(brandId);
     // Scroll para a seção de produtos quando uma marca for selecionada
@@ -39,22 +47,43 @@ function IndexContent() {
   };
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-background overflow-x-hidden">
       <Header 
         cartItemsCount={getTotalItems()} 
         onCartClick={() => setIsCartOpen(true)}
       />
       
-      <main>
-        <HeroSection />
-        <BrandsSection selectedBrand={selectedBrand} onBrandSelect={handleBrandSelect} />
-        <div id="products">
-          <ProductsSection selectedBrand={selectedBrand} />
+      {/* Botão de voltar quando está no checkout */}
+      {isCheckoutVisible && (
+        <div className="sticky top-16 z-40 bg-background/95 backdrop-blur-sm border-b px-4 py-2">
+          <div className="container mx-auto">
+            <Button
+              variant="ghost"
+              onClick={handleBackToShopping}
+              className="flex items-center gap-2 text-sm"
+            >
+              <ArrowLeft className="h-4 w-4" />
+              Voltar às compras
+            </Button>
+          </div>
         </div>
+      )}
+      
+      <main className="w-full">
+        {/* Seções principais - ocultar quando checkout estiver visível */}
+        <div className={isCheckoutVisible ? 'hidden' : 'block'}>
+          <HeroSection />
+          <BrandsSection selectedBrand={selectedBrand} onBrandSelect={handleBrandSelect} />
+          <div id="products">
+            <ProductsSection selectedBrand={selectedBrand} />
+          </div>
+        </div>
+
+        {/* Seção de checkout */}
         <CheckoutSection isVisible={isCheckoutVisible} />
       </main>
       
-      <Footer />
+      {!isCheckoutVisible && <Footer />}
       
       <CartDrawer 
         open={isCartOpen} 

@@ -95,17 +95,17 @@ Chave PIX utilizada: ${pixKey}`;
   if (!isVisible) return null;
 
   return (
-    <section id="checkout" className="py-16 bg-muted/30">
-      <div className="container mx-auto px-4">
-        <div className="max-w-6xl mx-auto">
-          <h2 className="text-3xl font-bold text-center mb-12 text-foreground">
+    <section id="checkout" className="py-8 sm:py-16 bg-muted/30 min-h-screen">
+      <div className="container mx-auto px-4 max-w-6xl">
+        <div className="w-full">
+          <h2 className="text-2xl sm:text-3xl font-bold text-center mb-8 sm:mb-12 text-foreground">
             Finalizar Pedido
           </h2>
 
-          <div className="grid lg:grid-cols-2 gap-8">
+          <div className="grid lg:grid-cols-2 gap-6 lg:gap-8">
             {/* Formulário de Dados */}
-            <div className="bg-background rounded-lg border shadow-sm p-6">
-              <h3 className="text-xl font-semibold mb-6 text-foreground">
+            <div className="bg-background rounded-lg border shadow-sm p-4 sm:p-6 h-fit">
+              <h3 className="text-lg sm:text-xl font-semibold mb-4 sm:mb-6 text-foreground">
                 Dados para Entrega
               </h3>
 
@@ -117,6 +117,7 @@ Chave PIX utilizada: ${pixKey}`;
                     value={formData.fullName}
                     onChange={(e) => handleInputChange("fullName", e.target.value)}
                     placeholder="Seu nome completo"
+                    className="mt-1"
                   />
                 </div>
 
@@ -127,6 +128,7 @@ Chave PIX utilizada: ${pixKey}`;
                     value={formData.whatsapp}
                     onChange={(e) => handleInputChange("whatsapp", e.target.value)}
                     placeholder="(11) 99999-9999"
+                    className="mt-1"
                   />
                 </div>
 
@@ -137,6 +139,7 @@ Chave PIX utilizada: ${pixKey}`;
                     value={formData.address}
                     onChange={(e) => handleInputChange("address", e.target.value)}
                     placeholder="Rua, número, complemento"
+                    className="mt-1"
                   />
                 </div>
 
@@ -147,6 +150,7 @@ Chave PIX utilizada: ${pixKey}`;
                     value={formData.cityState}
                     onChange={(e) => handleInputChange("cityState", e.target.value)}
                     placeholder="São Paulo/SP"
+                    className="mt-1"
                   />
                 </div>
 
@@ -157,20 +161,21 @@ Chave PIX utilizada: ${pixKey}`;
                     value={formData.cep}
                     onChange={(e) => handleInputChange("cep", e.target.value)}
                     placeholder="00000-000"
+                    className="mt-1"
                   />
                 </div>
               </div>
             </div>
 
             {/* Instruções de Pagamento */}
-            <div className="bg-background rounded-lg border shadow-sm p-6">
-              <h3 className="text-xl font-semibold mb-6 text-foreground">
+            <div className="bg-background rounded-lg border shadow-sm p-4 sm:p-6 h-fit">
+              <h3 className="text-lg sm:text-xl font-semibold mb-4 sm:mb-6 text-foreground">
                 Pagamento via PIX
               </h3>
 
               <div className="space-y-6">
                 <div className="bg-primary/10 rounded-lg p-4 border border-primary/20">
-                  <p className="text-2xl font-bold text-primary mb-2">
+                  <p className="text-xl sm:text-2xl font-bold text-primary mb-2">
                     Total: R$ {total.toFixed(2)}
                   </p>
                   <p className="text-sm text-muted-foreground">
@@ -179,7 +184,7 @@ Chave PIX utilizada: ${pixKey}`;
                 </div>
 
                 <div className="text-center">
-                  <div className="bg-muted rounded-lg p-8 mb-4">
+                  <div className="bg-muted rounded-lg p-6 sm:p-8 mb-4">
                     <p className="text-muted-foreground">QR Code PIX</p>
                     <p className="text-sm text-muted-foreground mt-2">
                       [QR Code será gerado aqui]
@@ -190,7 +195,7 @@ Chave PIX utilizada: ${pixKey}`;
                 <div>
                   <Label>Chave PIX</Label>
                   <div className="flex gap-2 mt-1">
-                    <Input value={pixKey} readOnly className="bg-muted" />
+                    <Input value={pixKey} readOnly className="bg-muted text-sm" />
                     <Button
                       variant="outline"
                       size="icon"
