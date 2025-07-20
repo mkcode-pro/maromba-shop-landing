@@ -1,3 +1,4 @@
+
 import { useState, useEffect, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
@@ -22,33 +23,39 @@ export function ChatStep({ profileData, onNewConsultation }: ChatStepProps) {
   const scrollAreaRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    generateSuggestion();
+    generateProtocolSuggestion();
   }, []);
 
-  const generateSuggestion = async () => {
+  const generateProtocolSuggestion = async () => {
     setIsLoading(true);
     setError("");
     
     try {
       const systemInstructions = `
-Você é um especialista em protocolos de musculação chamado "Assistente Maromba". Sua personalidade é amigável, direta e focada em segurança. Sua tarefa é analisar o perfil do usuário e a lista de produtos disponíveis para criar sugestões de ciclos.
+Você é um especialista em protocolos farmacológicos ergogênicos chamado "Assistente Maromba". Sua personalidade é técnica, precisa e focada em segurança clínica. Sua tarefa é analisar o perfil do usuário e a lista de compostos disponíveis para criar protocolos ergogênicos estruturados.
 
 ### REGRAS CRÍTICAS PARA PERFIL FEMININO:
-1. **FOCO EM BAIXA VIRILIZAÇÃO:** Sua prioridade máxima é a segurança. Sugira APENAS substâncias com baixo risco androgênico.
-2. **SUBSTÂNCIAS RECOMENDADAS (ÚNICAS PERMITIDAS):** Baseie suas sugestões EXCLUSIVAMENTE em: Oxandrolona, Primobolan, Stanozolol, e Hemogenin. Para Hemogenin e Stanozolol, sempre recomende doses baixas e explique que são opções que exigem mais cautela.
-3. **PROIBIÇÃO ABSOLUTA:** É terminantemente proibido sequer MENCIONAR as seguintes substâncias para mulheres: qualquer tipo de Testosterona, Trembolona, Dianabol. Foque apenas no que é seguro e recomendado.
-4. **MÚLTIPLAS OPÇÕES:** Ofereça pelo menos duas opções de ciclos diferentes se houver produtos adequados.
+1. **PRIORIDADE ABSOLUTA EM SEGURANÇA HORMONAL:** Foque exclusivamente em compostos com baixíssimo potencial androgênico e risco mínimo de virilização.
+2. **COMPOSTOS APROVADOS (ÚNICOS PERMITIDOS):** Baseie protocolos EXCLUSIVAMENTE em: Oxandrolona (Anavar), Primobolan (Metenolona), Stanozolol (doses baixas), e Hemogenin (doses mínimas). Para Stanozolol e Hemogenin, sempre enfatize monitoramento rigoroso.
+3. **COMPOSTOS PROIBIDOS:** É terminantemente proibido mencionar para mulheres: Testosterona (qualquer éster), Trembolona, Dianabol, Boldenona ou qualquer composto com alto potencial androgênico.
+4. **PROTOCOLOS MÚLTIPLOS:** Sempre ofereça pelo menos duas opções de ciclos com diferentes níveis de intensidade.
 
-### REGRAS GERAIS:
-1. **BASEADO NA LISTA:** Suas sugestões devem usar APENAS os produtos da "lista de produtos disponíveis" fornecida.
-2. **ESTRUTURA DA RESPOSTA:** Comece se apresentando, crie sugestões de ciclo de 8 semanas para um usuário intermediário, inclua dosagens, proteções e TPC.
-3. **FORMATAÇÃO:** Use Markdown simples (### para títulos, ** para negrito, - para listas).
+### REGRAS GERAIS PARA PROTOCOLOS:
+1. **BASEADO EXCLUSIVAMENTE NA LISTA:** Utilize APENAS os compostos da "lista de produtos disponíveis" fornecida.
+2. **ESTRUTURA TÉCNICA OBRIGATÓRIA:** 
+   - Apresentação como especialista em farmacologia esportiva
+   - Protocolos de 6-8 semanas para perfil intermediário
+   - Dosagens precisas com frequência de administração
+   - Ancilares para proteção e controle hormonal
+   - Protocolo de PCT (Terapia Pós-Ciclo) detalhado
+3. **FORMATAÇÃO PROFISSIONAL:** Use Markdown estruturado (### para seções, ** para compostos, - para dosagens).
+4. **LINGUAGEM TÉCNICA:** Utilize terminologia farmacológica precisa, evite linguagem coloquial.
       `;
 
-      // Importar lista real de produtos
+      // Import product list
       const { products } = await import("@/data/products");
       
-      // Filtrar produtos por preferência
+      // Filter products by user preference
       let availableProducts = products;
       if (profileData.preference === "oral") {
         availableProducts = products.filter(p => 
@@ -61,15 +68,15 @@ Você é um especialista em protocolos de musculação chamado "Assistente Marom
       }
 
       const productsList = `
-LISTA DE PRODUTOS DISPONÍVEIS:
+LISTA DE COMPOSTOS FARMACOLÓGICOS DISPONÍVEIS:
 ${availableProducts.map(p => `- ${p.name}: ${p.description}`).join('\n')}
       `;
 
       const userProfile = `
-PERFIL DO USUÁRIO:
-- Gênero: ${profileData.gender}
-- Objetivo Principal: ${profileData.objective}
-- Preferência de Administração: ${profileData.preference}
+PERFIL CLÍNICO DO USUÁRIO:
+- Sexo Biológico: ${profileData.gender}
+- Objetivo do Protocolo: ${profileData.objective}
+- Via de Administração Preferencial: ${profileData.preference}
       `;
 
       const fullPrompt = `${systemInstructions}\n\n${userProfile}\n\n${productsList}`;
@@ -85,92 +92,119 @@ PERFIL DO USUÁRIO:
           throw new Error("No API key");
         }
       } catch (apiError) {
-        console.log("Using mock response:", apiError);
-        // Fallback to mock response
+        console.log("Using clinical mock response:", apiError);
+        // Enhanced clinical mock response
         let mockResponse;
       
       if (profileData.gender === "feminino") {
         mockResponse = `
-### Olá! Sou o Assistente Maromba 🔬
+### Assistente Maromba - Consultor em Farmacologia Esportiva 🧬
 
-Analisei seu perfil e vou focar em substâncias com **baixo risco androgênico** para seu objetivo: **${profileData.objective}**
+Analisei seu perfil clínico e desenvolverei protocolos ergogênicos com **foco primário em segurança hormonal** para o objetivo: **${profileData.objective}**
 
-### 🎯 Protocolos Seguros para Mulheres
+### 🎯 Protocolos Clínicos para Perfil Feminino
 
-**Protocolo 1: Iniciante (Baixo Risco)**
-- **Oxandrolona**: 5-10mg/dia por 6-8 semanas
-- **Tamoxifeno**: 10mg/dia durante o ciclo (proteção)
-- **Anastrozol**: 0.25mg 2x/semana (controle estrogênico)
+**PROTOCOLO CONSERVADOR (Primeira Abordagem)**
+- **Oxandrolona**: 5-10mg/dia (via oral) por 6 semanas
+- **Tamoxifeno**: 10mg/dia durante todo o ciclo (proteção estrogênica)
+- **Anastrozol**: 0,25mg 2x/semana (modulação aromatase)
 
-**Protocolo 2: Intermediário**
-- **Primobolan**: 50mg 2x/semana (injetável) 
-- **Oxandrolona**: 10mg/dia (oral)
-- **Tamoxifeno + Anastrozol**: conforme protocolo 1
+**PROTOCOLO INTERMEDIÁRIO (Experiência Prévia)**
+- **Primobolan (Metenolona)**: 50mg 2x/semana (via intramuscular)
+- **Oxandrolona**: 10mg/dia (potencialização oral)
+- **Ancilares**: Tamoxifeno 10mg/dia + Anastrozol conforme protocolo 1
 
-### ⚠️ Cuidados Específicos
+### ⚠️ Monitoramento Clínico Obrigatório
 
-- **Sinais de Virilização**: Interrompa imediatamente se notar voz grave, aumento de pelos ou alterações no clitóris
-- **Monitoramento**: Exames hormonais a cada 4 semanas
-- **Doses Baixas**: NUNCA exceda as dosagens recomendadas
+**Sinais de Alerta Imediato**: Interrompa IMEDIATAMENTE se observar:
+- Alterações na voz (rouquidão, grave)
+- Crescimento piloso facial/corporal anormal
+- Hipertrofia clitoriana
+- Irregularidades menstruais severas
 
-### 📋 PCT Feminino (4 semanas)
+**Exames Laboratoriais**: 
+- Perfil hormonal completo a cada 4 semanas
+- Função hepática (TGO, TGP, bilirrubinas)
+- Perfil lipídico completo
 
-**Semanas 1-2**: Tamoxifeno 20mg/dia
-**Semanas 3-4**: Tamoxifeno 10mg/dia
-
-**IMPORTANTE**: Este protocolo é baseado apenas nos produtos disponíveis. Consulte sempre um endocrinologista especializado!`;
-      } else {
-        mockResponse = `
-### Olá! Sou o Assistente Maromba 💪
-
-Com base no seu perfil (**${profileData.gender}**, objetivo: **${profileData.objective}**), criei protocolos específicos usando nossa linha de produtos.
-
-### 🎯 Protocolo Intermediário (8 semanas)
-
-**Ciclo Base**
-- **Enantato de Testosterona**: 250mg 2x/semana (500mg/semana)
-- **Decanoato de Nandrolona**: 200mg/semana (ganhos sólidos)
-- **Anastrozol**: 0.5mg 2x/semana (controle estrogênico)
-
-**Kickstart Oral (4 primeiras semanas)**
-- **Metandrostenolona**: 20mg/dia (ganhos rápidos)
-
-### 🔄 Protocolo Avançado (10 semanas)
-
-**Base Anabólica**
-- **Enantato de Testosterona**: 400mg/semana
-- **Acetato de Trembolona**: 300mg/semana
-- **Stanozolol**: 50mg/dia (últimas 6 semanas)
-
-### 🛡️ PCT (4 semanas pós-ciclo)
+### 📋 PCT Feminina Especializada (4 semanas)
 
 **Semanas 1-2**: 
-- Tamoxifeno 40mg/dia + Clomifeno 100mg/dia
+- Tamoxifeno 20mg/dia
+- Clomifeno 25mg/dia
 
 **Semanas 3-4**: 
-- Tamoxifeno 20mg/dia + Clomifeno 50mg/dia
+- Tamoxifeno 10mg/dia
+- Suporte hepático com Silimarina
 
-### ⚠️ Monitoramento Obrigatório
+**DISCLAIMER MÉDICO**: Este protocolo é baseado exclusivamente nos compostos disponíveis em estoque. Acompanhamento endocrinológico especializado é OBRIGATÓRIO antes, durante e após qualquer protocolo.`;
+      } else {
+        mockResponse = `
+### Assistente Maromba - Especialista em Protocolos Ergogênicos 💪
 
-- **Exames pré-ciclo**: Hemograma, lipidograma, função hepática
-- **Durante**: Pressão arterial semanal
-- **Pós-PCT**: Exames hormonais completos
+Baseado em seu perfil clínico (**${profileData.gender}**, objetivo: **${profileData.objective}**), desenvolvi protocolos farmacológicos estruturados utilizando compostos de nossa linha disponível.
 
-**FUNDAMENTAL**: Acompanhamento médico especializado é obrigatório!`;
+### 🎯 Protocolo Intermediário Estruturado (8 semanas)
+
+**BASE ANABÓLICA PRINCIPAL**
+- **Enantato de Testosterona**: 250mg 2x/semana (500mg/semana total)
+- **Decanoato de Nandrolona**: 200mg/semana (ganhos em massa magra)
+- **Anastrozol**: 0,5mg 2x/semana (controle aromático essencial)
+
+**POTENCIALIZADOR ORAL (Primeiras 4 semanas)**
+- **Metandrostenolona**: 20mg/dia dividido em 2 tomadas
+- **Silimarina**: 150mg 3x/dia (proteção hepática)
+
+### 🔄 Protocolo Avançado de Alta Performance (10 semanas)
+
+**STACK ANABÓLICO INTENSIVO**
+- **Enantato de Testosterona**: 400mg/semana (base hormonal)
+- **Acetato de Trembolona**: 300mg/semana (recomposição corporal)
+- **Stanozolol**: 50mg/dia (6 últimas semanas - definição)
+
+**ANCILARES OBRIGATÓRIOS**
+- **Anastrozol**: 0,5mg EOD (controle estrogênico)
+- **Cabergolina**: 0,25mg 2x/semana (controle prolactina - Trembolona)
+
+### 🛡️ PCT Farmacológica Estruturada (4 semanas pós-ciclo)
+
+**Fase Intensiva (Semanas 1-2)**
+- **Tamoxifeno**: 40mg/dia (modulação estrogênica)
+- **Clomifeno**: 100mg/dia (estimulação LH/FSH)
+
+**Fase de Transição (Semanas 3-4)**
+- **Tamoxifeno**: 20mg/dia
+- **Clomifeno**: 50mg/dia
+- **HCG**: 1500ui 2x/semana (se disponível)
+
+### 📊 Monitoramento Clínico Rigoroso
+
+**Exames Pré-Ciclo Obrigatórios**
+- Hemograma completo + plaquetas
+- Perfil hormonal (Test total/livre, LH, FSH, E2)
+- Função hepática completa
+- Perfil lipídico e cardiovascular
+
+**Acompanhamento Durante o Protocolo**
+- Pressão arterial semanal
+- Peso corporal e composição 2x/semana
+- Sinais de ginecomastia ou retenção hídrica
+
+**FUNDAMENTAL**: Todo protocolo ergogênico requer supervisão médica especializada. Esta consulta é puramente educacional e não substitui acompanhamento clínico profissional.`;
         }
         responseText = mockResponse;
       }
 
-      // Simulate API delay only for mock
+      // Simulate API processing time for mock
       if (!apiKey) {
-        await new Promise(resolve => setTimeout(resolve, 2000));
+        await new Promise(resolve => setTimeout(resolve, 3000));
       }
       
       const htmlResponse = await marked(responseText);
       setResponse(htmlResponse);
     } catch (err) {
-      setError("Erro ao gerar sugestão. Tente novamente.");
-      console.error("Error generating suggestion:", err);
+      setError("Erro ao calcular protocolo ergogênico. Tente novamente.");
+      console.error("Error generating protocol:", err);
     } finally {
       setIsLoading(false);
     }
@@ -186,7 +220,7 @@ Com base no seu perfil (**${profileData.gender}**, objetivo: **${profileData.obj
                 Assistente Maromba
               </h2>
               <p className="text-sm text-muted-foreground">
-                {apiKey ? "IA Gemini ativada" : "Modo simulação ativa"}
+                {apiKey ? "IA Gemini Pro ativada" : "Modo simulação clínica ativa"}
               </p>
             </div>
             <div className="flex gap-2">
@@ -197,7 +231,7 @@ Com base no seu perfil (**${profileData.gender}**, objetivo: **${profileData.obj
                 className="gap-2"
               >
                 <Settings className="h-4 w-4" />
-                {apiKey ? "Configurado" : "Configurar IA"}
+                {apiKey ? "IA Configurada" : "Configurar IA"}
               </Button>
               <Button
                 variant="outline"
@@ -206,7 +240,7 @@ Com base no seu perfil (**${profileData.gender}**, objetivo: **${profileData.obj
                 className="gap-2"
               >
                 <RotateCcw className="h-4 w-4" />
-                Nova Consulta
+                Novo Protocolo
               </Button>
             </div>
           </div>
@@ -215,7 +249,7 @@ Com base no seu perfil (**${profileData.gender}**, objetivo: **${profileData.obj
           {showApiKeyInput && (
             <div className="mt-4 p-4 bg-muted rounded-lg space-y-3">
               <Label htmlFor="apikey" className="text-sm font-medium">
-                Chave da API Gemini (opcional - para IA real)
+                Chave da API Gemini Pro (opcional - para IA real)
               </Label>
               <div className="flex gap-2">
                 <Input
@@ -231,7 +265,7 @@ Com base no seu perfil (**${profileData.gender}**, objetivo: **${profileData.obj
                   onClick={() => setShowApiKeyInput(false)}
                   disabled={!apiKey}
                 >
-                  Salvar
+                  Configurar
                 </Button>
               </div>
               <p className="text-xs text-muted-foreground">
@@ -241,7 +275,7 @@ Com base no seu perfil (**${profileData.gender}**, objetivo: **${profileData.obj
           )}
       </div>
 
-      {/* Chat Area */}
+      {/* Protocol Area */}
       <ScrollArea className="flex-1 p-4">
         <div className="space-y-4">
           {isLoading ? (
@@ -249,27 +283,35 @@ Com base no seu perfil (**${profileData.gender}**, objetivo: **${profileData.obj
               <div className="text-center space-y-3">
                 <Loader2 className="h-8 w-8 animate-spin text-primary mx-auto" />
                 <p className="text-muted-foreground">
-                  Analisando seu perfil e gerando sugestões...
+                  Calculando protocolo ergogênico personalizado...
+                </p>
+                <p className="text-xs text-muted-foreground">
+                  Analisando perfil clínico e compostos disponíveis
                 </p>
               </div>
             </div>
           ) : error ? (
             <div className="bg-destructive/10 border border-destructive/20 rounded-lg p-4">
-              <p className="text-destructive text-center">{error}</p>
+              <p className="text-destructive text-center font-medium">{error}</p>
               <Button
                 variant="outline"
                 size="sm"
-                onClick={generateSuggestion}
+                onClick={generateProtocolSuggestion}
                 className="mx-auto mt-3 flex gap-2"
               >
                 <RotateCcw className="h-4 w-4" />
-                Tentar Novamente
+                Recalcular Protocolo
               </Button>
             </div>
           ) : (
             <div className="bg-card border rounded-lg p-6">
+              <div className="mb-4 p-3 bg-amber-50 border border-amber-200 rounded-lg">
+                <p className="text-sm text-amber-800 font-medium">
+                  ⚠️ AVISO MÉDICO: Este protocolo é meramente educacional. Consulte sempre um endocrinologista especializado antes de iniciar qualquer protocolo ergogênico.
+                </p>
+              </div>
               <div 
-                className="prose prose-sm max-w-none"
+                className="prose prose-sm max-w-none prose-headings:text-foreground prose-p:text-muted-foreground"
                 dangerouslySetInnerHTML={{ __html: response }}
               />
             </div>
@@ -284,7 +326,7 @@ Com base no seu perfil (**${profileData.gender}**, objetivo: **${profileData.obj
           className="w-full"
           size="lg"
         >
-          Fazer Nova Consulta
+          Calcular Novo Protocolo
         </Button>
       </div>
     </div>
