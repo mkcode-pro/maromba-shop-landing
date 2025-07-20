@@ -2,6 +2,7 @@ import { useState } from "react";
 import { ArrowLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Header } from "@/components/layout/header";
+import { MobileBottomNav } from "@/components/layout/mobile-bottom-nav";
 import { HeroSection } from "@/components/sections/hero-section";
 import { BrandsSection } from "@/components/sections/brands-section";
 import { ProductsSection } from "@/components/sections/products-section";
@@ -46,6 +47,24 @@ function IndexContent() {
     }
   };
 
+  // Funções para navegação mobile
+  const scrollToHome = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  const scrollToBrands = () => {
+    const brandsSection = document.querySelector('section');
+    if (brandsSection) {
+      brandsSection.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
+  const scrollToProducts = () => {
+    document.getElementById('products')?.scrollIntoView({ 
+      behavior: 'smooth' 
+    });
+  };
+
   return (
     <div className="min-h-screen bg-background overflow-x-hidden">
       <Header 
@@ -69,7 +88,7 @@ function IndexContent() {
         </div>
       )}
       
-      <main className="w-full">
+      <main className="w-full pb-16 md:pb-0">
         {/* Seções principais - ocultar quando checkout estiver visível */}
         <div className={isCheckoutVisible ? 'hidden' : 'block'}>
           <HeroSection />
@@ -84,6 +103,16 @@ function IndexContent() {
       </main>
       
       {!isCheckoutVisible && <Footer />}
+      
+      {/* Barra de navegação inferior para mobile */}
+      <MobileBottomNav
+        cartItemsCount={getTotalItems()}
+        onCartClick={() => setIsCartOpen(true)}
+        onBrandsClick={scrollToBrands}
+        onProductsClick={scrollToProducts}
+        onHomeClick={scrollToHome}
+        isCheckoutVisible={isCheckoutVisible}
+      />
       
       <CartDrawer 
         open={isCartOpen} 
