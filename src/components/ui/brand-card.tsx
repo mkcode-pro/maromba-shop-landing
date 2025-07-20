@@ -1,24 +1,44 @@
-import { Card, CardContent } from "@/components/ui/card";
-
 interface BrandCardProps {
   name: string;
   logo: string;
   onClick: () => void;
+  isSelected?: boolean;
 }
 
-export function BrandCard({ name, logo, onClick }: BrandCardProps) {
+export function BrandCard({ name, logo, onClick, isSelected = false }: BrandCardProps) {
   return (
-    <Card 
-      className="cursor-pointer group overflow-hidden border-0 bg-card-gradient shadow-card hover:shadow-button transition-all duration-300 hover:-translate-y-1"
+    <div 
       onClick={onClick}
+      className={`
+        relative group cursor-pointer rounded-lg border-2 transition-all duration-300 hover:scale-105 hover:shadow-lg p-4 bg-background
+        ${isSelected 
+          ? 'border-primary shadow-lg ring-2 ring-primary/20' 
+          : 'border-border hover:border-primary/50'
+        }
+      `}
     >
-      <CardContent className="p-6 flex flex-col items-center justify-center h-24">
-        <img 
-          src={logo} 
-          alt={`Logo ${name}`}
-          className="max-h-12 max-w-full object-contain transition-transform duration-300 group-hover:scale-110"
-        />
-      </CardContent>
-    </Card>
+      <div className="flex flex-col items-center space-y-3">
+        <div className="w-full h-16 flex items-center justify-center">
+          <img 
+            src={logo} 
+            alt={`Logo ${name}`}
+            className="max-w-full max-h-full object-contain"
+            loading="lazy"
+          />
+        </div>
+        <h3 className={`
+          text-sm font-medium text-center transition-colors duration-300
+          ${isSelected ? 'text-primary' : 'text-foreground group-hover:text-primary'}
+        `}>
+          {name}
+        </h3>
+      </div>
+      
+      {isSelected && (
+        <div className="absolute -top-1 -right-1 w-6 h-6 bg-primary rounded-full flex items-center justify-center">
+          <div className="w-2 h-2 bg-background rounded-full"></div>
+        </div>
+      )}
+    </div>
   );
 }

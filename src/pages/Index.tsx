@@ -12,6 +12,7 @@ import { useCartContext } from "@/contexts/cart-context";
 function IndexContent() {
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [isCheckoutVisible, setIsCheckoutVisible] = useState(false);
+  const [selectedBrand, setSelectedBrand] = useState<string | undefined>(undefined);
   const { getTotalItems } = useCartContext();
 
   const handleGoToCheckout = () => {
@@ -25,6 +26,18 @@ function IndexContent() {
     }, 100);
   };
 
+  const handleBrandSelect = (brandId: string | undefined) => {
+    setSelectedBrand(brandId);
+    // Scroll para a seção de produtos quando uma marca for selecionada
+    if (brandId) {
+      setTimeout(() => {
+        document.getElementById('products')?.scrollIntoView({ 
+          behavior: 'smooth' 
+        });
+      }, 100);
+    }
+  };
+
   return (
     <div className="min-h-screen bg-background">
       <Header 
@@ -34,8 +47,10 @@ function IndexContent() {
       
       <main>
         <HeroSection />
-        <BrandsSection />
-        <ProductsSection />
+        <BrandsSection selectedBrand={selectedBrand} onBrandSelect={handleBrandSelect} />
+        <div id="products">
+          <ProductsSection selectedBrand={selectedBrand} />
+        </div>
         <CheckoutSection isVisible={isCheckoutVisible} />
       </main>
       

@@ -7,7 +7,57 @@ export interface Product {
   discountPrice: number;
   discountPercentage: number;
   category: string;
+  brand: string;
 }
+
+export interface Brand {
+  id: string;
+  name: string;
+  logo: string;
+}
+
+export const brands: Brand[] = [
+  {
+    id: "rx-pharmaceuticals",
+    name: "RX Pharmaceuticals",
+    logo: "https://i.postimg.cc/5tFZG84c/RX-novo.png"
+  },
+  {
+    id: "king-pharma",
+    name: "King Pharma",
+    logo: "https://loja.imperiopharma.com.py/imgs/marcas/king.png"
+  },
+  {
+    id: "landerlan",
+    name: "Landerlan",
+    logo: "https://loja.imperiopharma.com.py/imgs/marcas/lander.png"
+  },
+  {
+    id: "landerlan-gold",
+    name: "Landerlan Gold",
+    logo: "https://loja.imperiopharma.com.py/imgs/marcas/landergold.png"
+  },
+  {
+    id: "eminence-labs",
+    name: "Eminence Labs",
+    logo: "https://i.postimg.cc/hGYHCWzk/eminence.png"
+  },
+  {
+    id: "oxygen-kw",
+    name: "Oxygen KW Pharma",
+    logo: "https://loja.imperiopharma.com.py/imgs/marcas/oxygenkw.png"
+  },
+  {
+    id: "pharmacom",
+    name: "Pharmacom Labs",
+    logo: "https://loja.imperiopharma.com.py/imgs/marcas/pharmacom.png"
+  },
+  {
+    id: "zphc",
+    name: "ZPHC",
+    logo: "https://loja.imperiopharma.com.py/imgs/marcas/zphc.png"
+  }
+];
 
 export const products: Product[] = [
   // Testosterona
@@ -19,7 +69,8 @@ export const products: Product[] = [
     originalPrice: 189.90,
     discountPrice: 159.90,
     discountPercentage: 16,
-    category: "testosterona"
+    category: "testosterona",
+    brand: "king-pharma"
   },
   {
     id: "test-2", 
@@ -29,7 +80,8 @@ export const products: Product[] = [
     originalPrice: 179.90,
     discountPrice: 149.90,
     discountPercentage: 17,
-    category: "testosterona"
+    category: "testosterona",
+    brand: "pharmacom"
   },
   {
     id: "test-3",
@@ -39,7 +91,8 @@ export const products: Product[] = [
     originalPrice: 169.90,
     discountPrice: 139.90,
     discountPercentage: 18,
-    category: "testosterona"
+    category: "testosterona",
+    brand: "rx-pharmaceuticals"
   },
 
   // Orais
@@ -51,7 +104,8 @@ export const products: Product[] = [
     originalPrice: 299.90,
     discountPrice: 259.90,
     discountPercentage: 13,
-    category: "orais"
+    category: "orais",
+    brand: "landerlan-gold"
   },
   {
     id: "oral-2",
@@ -61,7 +115,8 @@ export const products: Product[] = [
     originalPrice: 179.90,
     discountPrice: 149.90,
     discountPercentage: 17,
-    category: "orais"
+    category: "orais",
+    brand: "eminence-labs"
   },
 
   // Trembolona
@@ -73,7 +128,8 @@ export const products: Product[] = [
     originalPrice: 249.90,
     discountPrice: 219.90,
     discountPercentage: 12,
-    category: "trembolona"
+    category: "trembolona",
+    brand: "zphc"
   },
   {
     id: "tren-2",
@@ -83,7 +139,8 @@ export const products: Product[] = [
     originalPrice: 279.90,
     discountPrice: 239.90,
     discountPercentage: 14,
-    category: "trembolona"
+    category: "trembolona",
+    brand: "pharmacom"
   },
 
   // Nandrolona
@@ -95,7 +152,8 @@ export const products: Product[] = [
     originalPrice: 199.90,
     discountPrice: 169.90,
     discountPercentage: 15,
-    category: "nandrolona"
+    category: "nandrolona",
+    brand: "king-pharma"
   },
   {
     id: "npp-1",
@@ -105,7 +163,8 @@ export const products: Product[] = [
     originalPrice: 189.90,
     discountPrice: 159.90,
     discountPercentage: 16,
-    category: "nandrolona"
+    category: "nandrolona",
+    brand: "landerlan"
   },
 
   // Primobolan
@@ -117,7 +176,8 @@ export const products: Product[] = [
     originalPrice: 349.90,
     discountPrice: 299.90,
     discountPercentage: 14,
-    category: "primobolan"
+    category: "primobolan",
+    brand: "eminence-labs"
   },
 
   // Dianabol
@@ -129,7 +189,8 @@ export const products: Product[] = [
     originalPrice: 159.90,
     discountPrice: 129.90,
     discountPercentage: 19,
-    category: "dianabol"
+    category: "dianabol",
+    brand: "oxygen-kw"
   },
 
   // PCT e Proteções
@@ -141,7 +202,8 @@ export const products: Product[] = [
     originalPrice: 129.90,
     discountPrice: 109.90,
     discountPercentage: 15,
-    category: "pct"
+    category: "pct",
+    brand: "rx-pharmaceuticals"
   },
   {
     id: "pct-2",
@@ -151,7 +213,8 @@ export const products: Product[] = [
     originalPrice: 149.90,
     discountPrice: 129.90,
     discountPercentage: 13,
-    category: "pct"
+    category: "pct",
+    brand: "zphc"
   },
   {
     id: "pct-3",
@@ -161,7 +224,8 @@ export const products: Product[] = [
     originalPrice: 179.90,
     discountPrice: 149.90,
     discountPercentage: 17,
-    category: "pct"
+    category: "pct",
+    brand: "landerlan-gold"
   }
 ];
 

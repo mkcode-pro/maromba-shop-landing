@@ -1,71 +1,55 @@
 import { BrandCard } from "@/components/ui/brand-card";
+import { brands } from "@/data/products";
 
-const brands = [
-  {
-    id: "testosterona",
-    name: "Testosterona",
-    logo: "https://via.placeholder.com/120x60/1F2937/FFFFFF?text=TEST"
-  },
-  {
-    id: "orais", 
-    name: "Orais",
-    logo: "https://via.placeholder.com/120x60/7C3AED/FFFFFF?text=ORAIS"
-  },
-  {
-    id: "trembolona",
-    name: "Trembolona", 
-    logo: "https://via.placeholder.com/120x60/DC2626/FFFFFF?text=TREN"
-  },
-  {
-    id: "nandrolona",
-    name: "Nandrolona",
-    logo: "https://via.placeholder.com/120x60/059669/FFFFFF?text=DECA"
-  },
-  {
-    id: "primobolan",
-    name: "Primobolan",
-    logo: "https://via.placeholder.com/120x60/0891B2/FFFFFF?text=PRIMO"
-  },
-  {
-    id: "pct",
-    name: "PCT & Proteções",
-    logo: "https://via.placeholder.com/120x60/6B7280/FFFFFF?text=PCT"
-  }
-];
+interface BrandsSectionProps {
+  selectedBrand?: string;
+  onBrandSelect: (brandId: string | undefined) => void;
+}
 
-export function BrandsSection() {
-  const scrollToBrand = (brandId: string) => {
-    const element = document.getElementById(brandId);
-    if (element) {
-      element.scrollIntoView({ 
-        behavior: 'smooth',
-        block: 'start'
-      });
+export function BrandsSection({ selectedBrand, onBrandSelect }: BrandsSectionProps) {
+  const handleBrandClick = (brandId: string) => {
+    // Se a marca já está selecionada, deseleciona (mostra todos)
+    if (selectedBrand === brandId) {
+      onBrandSelect(undefined);
+    } else {
+      onBrandSelect(brandId);
     }
   };
 
   return (
-    <section className="py-12 px-4 bg-pharma-light">
+    <section className="py-12 px-4 bg-muted/30">
       <div className="container mx-auto">
         <div className="text-center mb-8">
           <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-2">
-            Laboratórios Certificados
+            Navegue por Marcas
           </h2>
           <p className="text-muted-foreground">
-            Produtos de qualidade farmacêutica para protocolos profissionais
+            Laboratórios farmacêuticos certificados internacionalmente
           </p>
         </div>
 
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+        <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-4 gap-4 mb-6">
           {brands.map((brand) => (
             <BrandCard
               key={brand.id}
               name={brand.name}
               logo={brand.logo}
-              onClick={() => scrollToBrand(brand.id)}
+              onClick={() => handleBrandClick(brand.id)}
+              isSelected={selectedBrand === brand.id}
             />
           ))}
         </div>
+
+        {selectedBrand && (
+          <div className="text-center">
+            <button
+              onClick={() => onBrandSelect(undefined)}
+              className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+            >
+              ← Mostrar todas as marcas
+            </button>
+          </div>
+        )}
       </div>
     </section>
   );
