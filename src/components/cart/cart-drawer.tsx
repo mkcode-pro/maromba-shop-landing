@@ -30,9 +30,9 @@ export function CartDrawer({ open, onOpenChange, onGoToCheckout }: CartDrawerPro
   }, 0);
 
   return (
-    <Drawer open={open} onOpenChange={onOpenChange} direction="right">
-      <DrawerContent className="fixed inset-y-0 right-0 z-50 h-full w-full max-w-sm border-l bg-background shadow-lg sm:max-w-md">
-        <div className="flex h-full flex-col">
+    <Drawer open={open} onOpenChange={onOpenChange}>
+      <DrawerContent className="fixed inset-y-0 right-0 z-50 h-full w-full max-w-sm border-l bg-background shadow-lg sm:max-w-md data-[state=open]:animate-slide-in-right data-[state=closed]:animate-slide-out-right">
+        <div className="flex h-full min-h-0 flex-col">
           {/* Header fixo */}
           <DrawerHeader className="flex shrink-0 items-center justify-between border-b px-4 py-3">
             <DrawerTitle className="text-lg font-semibold">Seu Carrinho</DrawerTitle>
