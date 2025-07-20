@@ -1,3 +1,6 @@
+// Tipos de produtos permitidos
+export type ProductType = 'injetavel' | 'oral' | 'sarm' | 'protetor' | 'tpc';
+
 export interface Product {
   id: string;
   name: string;
@@ -8,54 +11,64 @@ export interface Product {
   discountPercentage: number;
   category: string;
   brand: string;
+  type: ProductType;
 }
 
 export interface Brand {
   id: string;
   name: string;
   logo: string;
+  allowedTypes: ProductType[];
 }
 
 export const brands: Brand[] = [
   {
     id: "rx-pharmaceuticals",
     name: "RX Pharmaceuticals",
-    logo: "https://i.postimg.cc/5tFZG84c/RX-novo.png"
+    logo: "https://i.postimg.cc/5tFZG84c/RX-novo.png",
+    allowedTypes: ['injetavel', 'tpc']
   },
   {
     id: "king-pharma",
     name: "King Pharma",
-    logo: "https://loja.imperiopharma.com.py/imgs/marcas/king.png"
+    logo: "https://loja.imperiopharma.com.py/imgs/marcas/king.png",
+    allowedTypes: ['injetavel']
   },
   {
     id: "landerlan",
     name: "Landerlan",
-    logo: "https://loja.imperiopharma.com.py/imgs/marcas/lander.png"
+    logo: "https://loja.imperiopharma.com.py/imgs/marcas/lander.png",
+    allowedTypes: ['injetavel']
   },
   {
     id: "landerlan-gold",
     name: "Landerlan Gold",
-    logo: "https://loja.imperiopharma.com.py/imgs/marcas/landergold.png"
+    logo: "https://loja.imperiopharma.com.py/imgs/marcas/landergold.png",
+    allowedTypes: ['oral', 'tpc']
   },
   {
     id: "eminence-labs",
     name: "Eminence Labs",
-    logo: "https://i.postimg.cc/hGYHCWzk/eminence.png"
+    logo: "https://i.postimg.cc/hGYHCWzk/eminence.png",
+    allowedTypes: ['oral', 'injetavel']
   },
   {
     id: "oxygen-kw",
     name: "Oxygen KW Pharma",
-    logo: "https://loja.imperiopharma.com.py/imgs/marcas/oxygenkw.png"
+    logo: "https://loja.imperiopharma.com.py/imgs/marcas/oxygenkw.png",
+    allowedTypes: ['oral']
   },
   {
     id: "pharmacom",
     name: "Pharmacom Labs",
-    logo: "https://loja.imperiopharma.com.py/imgs/marcas/pharmacom.png"
+    logo: "https://loja.imperiopharma.com.py/imgs/marcas/pharmacom.png",
+    allowedTypes: ['injetavel']
   },
   {
     id: "zphc",
     name: "ZPHC",
-    logo: "https://loja.imperiopharma.com.py/imgs/marcas/zphc.png"
+    logo: "https://loja.imperiopharma.com.py/imgs/marcas/zphc.png",
+    allowedTypes: ['injetavel', 'tpc']
   }
 ];
 
@@ -70,7 +83,8 @@ export const products: Product[] = [
     discountPrice: 159.90,
     discountPercentage: 16,
     category: "testosterona",
-    brand: "king-pharma"
+    brand: "king-pharma",
+    type: "injetavel"
   },
   {
     id: "test-2", 
@@ -81,7 +95,8 @@ export const products: Product[] = [
     discountPrice: 149.90,
     discountPercentage: 17,
     category: "testosterona",
-    brand: "pharmacom"
+    brand: "pharmacom",
+    type: "injetavel"
   },
   {
     id: "test-3",
@@ -92,7 +107,8 @@ export const products: Product[] = [
     discountPrice: 139.90,
     discountPercentage: 18,
     category: "testosterona",
-    brand: "rx-pharmaceuticals"
+    brand: "rx-pharmaceuticals",
+    type: "injetavel"
   },
 
   // Orais
@@ -105,7 +121,8 @@ export const products: Product[] = [
     discountPrice: 259.90,
     discountPercentage: 13,
     category: "orais",
-    brand: "landerlan-gold"
+    brand: "landerlan-gold",
+    type: "oral"
   },
   {
     id: "oral-2",
@@ -116,7 +133,8 @@ export const products: Product[] = [
     discountPrice: 149.90,
     discountPercentage: 17,
     category: "orais",
-    brand: "eminence-labs"
+    brand: "eminence-labs",
+    type: "oral"
   },
 
   // Trembolona
@@ -129,7 +147,8 @@ export const products: Product[] = [
     discountPrice: 219.90,
     discountPercentage: 12,
     category: "trembolona",
-    brand: "zphc"
+    brand: "zphc",
+    type: "injetavel"
   },
   {
     id: "tren-2",
@@ -140,7 +159,8 @@ export const products: Product[] = [
     discountPrice: 239.90,
     discountPercentage: 14,
     category: "trembolona",
-    brand: "pharmacom"
+    brand: "pharmacom",
+    type: "injetavel"
   },
 
   // Nandrolona
@@ -153,7 +173,8 @@ export const products: Product[] = [
     discountPrice: 169.90,
     discountPercentage: 15,
     category: "nandrolona",
-    brand: "king-pharma"
+    brand: "king-pharma",
+    type: "injetavel"
   },
   {
     id: "npp-1",
@@ -164,7 +185,8 @@ export const products: Product[] = [
     discountPrice: 159.90,
     discountPercentage: 16,
     category: "nandrolona",
-    brand: "landerlan"
+    brand: "landerlan",
+    type: "injetavel"
   },
 
   // Primobolan
@@ -177,7 +199,8 @@ export const products: Product[] = [
     discountPrice: 299.90,
     discountPercentage: 14,
     category: "primobolan",
-    brand: "eminence-labs"
+    brand: "eminence-labs",
+    type: "injetavel"
   },
 
   // Dianabol
@@ -190,7 +213,8 @@ export const products: Product[] = [
     discountPrice: 129.90,
     discountPercentage: 19,
     category: "dianabol",
-    brand: "oxygen-kw"
+    brand: "oxygen-kw",
+    type: "oral"
   },
 
   // PCT e Proteções
@@ -203,7 +227,8 @@ export const products: Product[] = [
     discountPrice: 109.90,
     discountPercentage: 15,
     category: "pct",
-    brand: "rx-pharmaceuticals"
+    brand: "rx-pharmaceuticals",
+    type: "tpc"
   },
   {
     id: "pct-2",
@@ -214,7 +239,8 @@ export const products: Product[] = [
     discountPrice: 129.90,
     discountPercentage: 13,
     category: "pct",
-    brand: "zphc"
+    brand: "zphc",
+    type: "tpc"
   },
   {
     id: "pct-3",
@@ -225,7 +251,8 @@ export const products: Product[] = [
     discountPrice: 149.90,
     discountPercentage: 17,
     category: "pct",
-    brand: "landerlan-gold"
+    brand: "landerlan-gold",
+    type: "tpc"
   }
 ];
 
