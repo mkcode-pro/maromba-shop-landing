@@ -1,13 +1,5 @@
 import { Minus, Plus, X, Trash2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import {
-  Drawer,
-  DrawerContent,
-  DrawerHeader,
-  DrawerTitle,
-  DrawerFooter,
-  DrawerClose,
-} from "@/components/ui/drawer";
 import { useCartContext } from "@/contexts/cart-context";
 import { products } from "@/data/products";
 
@@ -29,24 +21,36 @@ export function CartDrawer({ open, onOpenChange, onGoToCheckout }: CartDrawerPro
     return total + (product?.discountPrice || 0) * item.quantity;
   }, 0);
 
-  return (
-    <Drawer open={open} onOpenChange={onOpenChange}>
-      <DrawerContent className="fixed inset-y-0 right-0 z-50 h-full w-full max-w-sm border-l bg-background shadow-lg sm:max-w-md data-[state=open]:animate-slide-in-right data-[state=closed]:animate-slide-out-right">
-        <div className="flex h-full min-h-0 flex-col">
-          {/* Header fixo */}
-          <DrawerHeader className="flex shrink-0 items-center justify-between border-b px-4 py-3">
-            <DrawerTitle className="text-lg font-semibold">Seu Carrinho</DrawerTitle>
-            <DrawerClose asChild>
-              <Button variant="ghost" size="sm" className="h-8 w-8 p-0">
-                <X className="h-4 w-4" />
-              </Button>
-            </DrawerClose>
-          </DrawerHeader>
+  if (!open) return null;
 
-          {/* Conteúdo com scroll */}
-          <div className="flex-1 overflow-y-auto">
+  return (
+    <>
+      {/* Overlay */}
+      <div 
+        className="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm"
+        onClick={() => onOpenChange(false)}
+      />
+      
+      {/* Cart Panel */}
+      <div className="fixed inset-y-0 right-0 z-50 w-full max-w-sm border-l bg-background shadow-lg sm:max-w-md">
+        <div className="flex h-full flex-col">
+          {/* Header */}
+          <div className="flex shrink-0 items-center justify-between border-b px-4 py-4">
+            <h2 className="text-lg font-semibold">Seu Carrinho</h2>
+            <Button 
+              variant="ghost" 
+              size="sm" 
+              className="h-8 w-8 p-0"
+              onClick={() => onOpenChange(false)}
+            >
+              <X className="h-4 w-4" />
+            </Button>
+          </div>
+
+          {/* Content */}
+          <div className="flex-1 overflow-y-auto px-4 py-4">
             {cartItems.length === 0 ? (
-              <div className="flex h-full flex-col items-center justify-center p-6 text-center">
+              <div className="flex h-full flex-col items-center justify-center text-center">
                 <div className="mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-muted">
                   <span className="text-2xl">🛒</span>
                 </div>
@@ -54,12 +58,12 @@ export function CartDrawer({ open, onOpenChange, onGoToCheckout }: CartDrawerPro
                 <p className="mb-6 text-sm text-muted-foreground">
                   Adicione produtos para começar suas compras
                 </p>
-                <DrawerClose asChild>
-                  <Button variant="outline">Continue Comprando</Button>
-                </DrawerClose>
+                <Button variant="outline" onClick={() => onOpenChange(false)}>
+                  Continue Comprando
+                </Button>
               </div>
             ) : (
-              <div className="space-y-4 p-4">
+              <div className="space-y-4">
                 {cartItems.map((item) => {
                   const product = getProductById(item.productId);
                   if (!product) return null;
@@ -85,7 +89,7 @@ export function CartDrawer({ open, onOpenChange, onGoToCheckout }: CartDrawerPro
                           </p>
                         </div>
                         
-                        <div className="flex items-center justify-between gap-2">
+                        <div className="flex items-center justify-between gap-2 mt-2">
                           <div className="flex items-center gap-1">
                             <Button
                               variant="outline"
@@ -128,13 +132,15 @@ export function CartDrawer({ open, onOpenChange, onGoToCheckout }: CartDrawerPro
             )}
           </div>
 
-          {/* Footer fixo */}
+          {/* Footer */}
           {cartItems.length > 0 && (
             <div className="shrink-0 border-t bg-background p-4">
-              <div className="space-y-3">
-                <div className="flex items-center justify-between text-sm text-muted-foreground">
-                  <span>{cartItems.reduce((total, item) => total + item.quantity, 0)} item(s)</span>
-                  <span>Subtotal</span>
+              <div className="space-y-4">
+                <div className="flex items-center justify-between text-sm">
+                  <span className="text-muted-foreground">
+                    {cartItems.reduce((total, item) => total + item.quantity, 0)} item(s)
+                  </span>
+                  <span className="text-muted-foreground">Subtotal</span>
                 </div>
                 
                 <div className="flex items-center justify-between">
@@ -155,7 +161,7 @@ export function CartDrawer({ open, onOpenChange, onGoToCheckout }: CartDrawerPro
             </div>
           )}
         </div>
-      </DrawerContent>
-    </Drawer>
+      </div>
+    </>
   );
 }
