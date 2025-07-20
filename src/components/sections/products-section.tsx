@@ -22,11 +22,11 @@ export function ProductsSection() {
                   className="h-12 object-contain"
                 />
                 <div>
-                  <h2 className="text-2xl md:text-3xl font-bold text-pharma-dark">
+                  <h2 className="text-2xl md:text-3xl font-bold text-foreground">
                     {category.name}
                   </h2>
                   <p className="text-muted-foreground">
-                    Os melhores produtos para seus objetivos
+                    Compostos de qualidade farmacêutica certificada
                   </p>
                 </div>
               </div>

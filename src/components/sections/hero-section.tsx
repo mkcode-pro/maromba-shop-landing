@@ -18,23 +18,23 @@ export function HeroSection() {
           {/* Conteúdo à esquerda */}
           <div className="space-y-6 text-center lg:text-left">
             <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold leading-tight">
-              Conheça o seu novo{" "}
-              <span className="text-pharma-yellow">Assistente Maromba!</span>
+              Expertise em Protocolos{" "}
+              <span className="text-pharma-yellow">Ergogênicos</span>
             </h1>
             
             <p className="text-lg md:text-xl text-white/90 max-w-2xl">
-              Seu personal trainer digital para suplementação! Tire dúvidas, 
-              receba recomendações personalizadas e encontre os melhores produtos 
-              para seus objetivos fitness.
+              Assistente especializado em protocolos e ciclos anabolizantes. 
+              Receba orientações técnicas baseadas em ciência e experiência prática 
+              para maximizar seus resultados na musculação.
             </p>
             
-            <Button 
+              <Button 
               onClick={handleChatClick}
               size="lg"
               className="bg-pharma-yellow text-pharma-yellow-foreground hover:bg-pharma-yellow/90 shadow-button text-lg px-8 py-3 h-auto"
             >
               <MessageCircle className="mr-2 h-5 w-5" />
-              Converse com o Assistente
+              Consultar Especialista
             </Button>
           </div>
 
@@ -43,7 +43,7 @@ export function HeroSection() {
             <div className="relative">
               <img 
                 src={mascotImage} 
-                alt="Robozinho Maromba - Assistente de Suplementação"
+                alt="Assistente Maromba - Especialista em Protocolos Ergogênicos"
                 className="w-64 h-64 md:w-80 md:h-80 object-contain drop-shadow-2xl"
               />
               <div className="absolute inset-0 bg-pharma-yellow/10 rounded-full blur-3xl animate-pulse"></div>

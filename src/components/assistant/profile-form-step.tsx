@@ -31,11 +31,11 @@ export function ProfileFormStep({ onSubmit }: ProfileFormStepProps) {
   return (
     <div className="flex flex-col h-full p-6">
       <div className="text-center mb-8">
-        <h2 className="text-2xl font-bold text-pharma-dark mb-2">
-          Perfil do Usuário
+        <h2 className="text-2xl font-bold text-foreground mb-2">
+          Perfil para Protocolo
         </h2>
         <p className="text-muted-foreground">
-          Preencha suas informações para receber sugestões personalizadas
+          Configure seus dados para receber protocolos personalizados de substâncias ergogênicas
         </p>
       </div>
 
@@ -61,11 +61,11 @@ export function ProfileFormStep({ onSubmit }: ProfileFormStepProps) {
 
         <div className="space-y-3">
           <Label htmlFor="objective" className="text-base font-semibold">
-            Objetivo Principal
+            Objetivo do Protocolo
           </Label>
           <Textarea
             id="objective"
-            placeholder="Descreva seu objetivo (ex: ganho de massa muscular, definição, força, etc.)"
+            placeholder="Descreva seu objetivo específico (ex: bulk extremo, cutting definido, aumento de força powerlifting, recomposição corporal)"
             value={formData.objective}
             onChange={(e) => setFormData(prev => ({ ...prev, objective: e.target.value }))}
             className="min-h-[100px]"
@@ -103,7 +103,7 @@ export function ProfileFormStep({ onSubmit }: ProfileFormStepProps) {
             size="lg"
             disabled={!formData.objective.trim()}
           >
-            Gerar Sugestão
+            Gerar Protocolo Personalizado
           </Button>
         </div>
       </form>

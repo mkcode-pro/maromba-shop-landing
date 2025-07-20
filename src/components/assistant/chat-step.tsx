@@ -1,8 +1,11 @@
 import { useState, useEffect, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { Loader2, RotateCcw } from "lucide-react";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Loader2, RotateCcw, Settings } from "lucide-react";
 import { marked } from "marked";
+import { geminiService } from "@/lib/gemini";
 import type { ProfileData } from "./profile-form-step";
 
 interface ChatStepProps {
@@ -14,6 +17,8 @@ export function ChatStep({ profileData, onNewConsultation }: ChatStepProps) {
   const [response, setResponse] = useState<string>("");
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string>("");
+  const [apiKey, setApiKey] = useState<string>("");
+  const [showApiKeyInput, setShowApiKeyInput] = useState(false);
   const scrollAreaRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -40,21 +45,24 @@ Você é um especialista em protocolos de musculação chamado "Assistente Marom
 3. **FORMATAÇÃO:** Use Markdown simples (### para títulos, ** para negrito, - para listas).
       `;
 
+      // Importar lista real de produtos
+      const { products } = await import("@/data/products");
+      
+      // Filtrar produtos por preferência
+      let availableProducts = products;
+      if (profileData.preference === "oral") {
+        availableProducts = products.filter(p => 
+          p.category === "orais" || p.category === "pct"
+        );
+      } else if (profileData.preference === "injetavel") {
+        availableProducts = products.filter(p => 
+          !["orais", "dianabol"].includes(p.category)
+        );
+      }
+
       const productsList = `
 LISTA DE PRODUTOS DISPONÍVEIS:
-- Whey Protein Premium 1kg
-- Whey Isolado Chocolate 2kg  
-- Whey Hidrolisado Baunilha
-- Creatina Monohidratada 300g
-- Creatina Creapure 500g
-- Pré-Treino Explosive 300g
-- Pré-Treino Pump Formula
-- Multivitamínico Complete
-- Vitamina D3 2000UI
-- BCAA 2:1:1 240 cápsulas
-- Glutamina Powder 300g
-- Termogênico Fire 60 caps
-- L-Carnitina Liquid 500ml
+${availableProducts.map(p => `- ${p.name}: ${p.description}`).join('\n')}
       `;
 
       const userProfile = `
@@ -66,48 +74,99 @@ PERFIL DO USUÁRIO:
 
       const fullPrompt = `${systemInstructions}\n\n${userProfile}\n\n${productsList}`;
 
-      // Note: This is a mock implementation since we don't have the actual Gemini API key
-      // In a real implementation, you would call the Gemini API here
-      const mockResponse = `
+      // Try real Gemini API first, fallback to mock
+      let responseText;
+      
+      try {
+        if (apiKey) {
+          geminiService.setApiKey(apiKey);
+          responseText = await geminiService.generateResponse(fullPrompt);
+        } else {
+          throw new Error("No API key");
+        }
+      } catch (apiError) {
+        console.log("Using mock response:", apiError);
+        // Fallback to mock response
+        let mockResponse;
+      
+      if (profileData.gender === "feminino") {
+        mockResponse = `
+### Olá! Sou o Assistente Maromba 🔬
+
+Analisei seu perfil e vou focar em substâncias com **baixo risco androgênico** para seu objetivo: **${profileData.objective}**
+
+### 🎯 Protocolos Seguros para Mulheres
+
+**Protocolo 1: Iniciante (Baixo Risco)**
+- **Oxandrolona**: 5-10mg/dia por 6-8 semanas
+- **Tamoxifeno**: 10mg/dia durante o ciclo (proteção)
+- **Anastrozol**: 0.25mg 2x/semana (controle estrogênico)
+
+**Protocolo 2: Intermediário**
+- **Primobolan**: 50mg 2x/semana (injetável) 
+- **Oxandrolona**: 10mg/dia (oral)
+- **Tamoxifeno + Anastrozol**: conforme protocolo 1
+
+### ⚠️ Cuidados Específicos
+
+- **Sinais de Virilização**: Interrompa imediatamente se notar voz grave, aumento de pelos ou alterações no clitóris
+- **Monitoramento**: Exames hormonais a cada 4 semanas
+- **Doses Baixas**: NUNCA exceda as dosagens recomendadas
+
+### 📋 PCT Feminino (4 semanas)
+
+**Semanas 1-2**: Tamoxifeno 20mg/dia
+**Semanas 3-4**: Tamoxifeno 10mg/dia
+
+**IMPORTANTE**: Este protocolo é baseado apenas nos produtos disponíveis. Consulte sempre um endocrinologista especializado!`;
+      } else {
+        mockResponse = `
 ### Olá! Sou o Assistente Maromba 💪
 
-Analisei seu perfil e tenho algumas sugestões baseadas nos produtos disponíveis na loja. Como você é **${profileData.gender}** e busca **${profileData.objective}**, vou focar em suplementos seguros e eficazes.
+Com base no seu perfil (**${profileData.gender}**, objetivo: **${profileData.objective}**), criei protocolos específicos usando nossa linha de produtos.
 
-### 🎯 Sugestões Personalizadas
+### 🎯 Protocolo Intermediário (8 semanas)
 
-**Opção 1: Stack Básico para Iniciantes**
-- **Whey Protein Premium 1kg**: 30g após o treino
-- **Creatina Monohidratada 300g**: 3g diários
-- **Multivitamínico Complete**: 1 cápsula no café da manhã
-- **BCAA 2:1:1**: 10g durante o treino
+**Ciclo Base**
+- **Enantato de Testosterona**: 250mg 2x/semana (500mg/semana)
+- **Decanoato de Nandrolona**: 200mg/semana (ganhos sólidos)
+- **Anastrozol**: 0.5mg 2x/semana (controle estrogênico)
 
-**Opção 2: Stack Avançado para Resultados Otimizados**
-- **Whey Isolado Chocolate 2kg**: 25g pós-treino + 25g entre refeições
-- **Creatina Creapure 500g**: 5g pós-treino
-- **Pré-Treino Explosive**: 1 dose 30min antes do treino
-- **Glutamina Powder**: 10g antes de dormir
-- **Termogênico Fire**: 1 cápsula em jejum
+**Kickstart Oral (4 primeiras semanas)**
+- **Metandrostenolona**: 20mg/dia (ganhos rápidos)
 
-### ⚠️ Recomendações Importantes
+### 🔄 Protocolo Avançado (10 semanas)
 
-- **Hidratação**: Beba pelo menos 3L de água por dia
-- **Acompanhamento**: Consulte um nutricionista para ajustes
-- **Progressão**: Avalie resultados a cada 4 semanas
-- **Descanso**: Respeite os dias de recuperação
+**Base Anabólica**
+- **Enantato de Testosterona**: 400mg/semana
+- **Acetato de Trembolona**: 300mg/semana
+- **Stanozolol**: 50mg/dia (últimas 6 semanas)
 
-### 📋 Protocolo de 8 Semanas
+### 🛡️ PCT (4 semanas pós-ciclo)
 
-**Semanas 1-2**: Adaptação (doses menores)
-**Semanas 3-6**: Protocolo completo
-**Semanas 7-8**: Manutenção e avaliação
+**Semanas 1-2**: 
+- Tamoxifeno 40mg/dia + Clomifeno 100mg/dia
 
-Lembre-se: Esta é uma sugestão educativa. Sempre consulte profissionais de saúde antes de iniciar qualquer protocolo!
-      `;
+**Semanas 3-4**: 
+- Tamoxifeno 20mg/dia + Clomifeno 50mg/dia
 
-      // Simulate API delay
-      await new Promise(resolve => setTimeout(resolve, 2000));
+### ⚠️ Monitoramento Obrigatório
+
+- **Exames pré-ciclo**: Hemograma, lipidograma, função hepática
+- **Durante**: Pressão arterial semanal
+- **Pós-PCT**: Exames hormonais completos
+
+**FUNDAMENTAL**: Acompanhamento médico especializado é obrigatório!`;
+        }
+        responseText = mockResponse;
+      }
+
+      // Simulate API delay only for mock
+      if (!apiKey) {
+        await new Promise(resolve => setTimeout(resolve, 2000));
+      }
       
-      const htmlResponse = await marked(mockResponse);
+      const htmlResponse = await marked(responseText);
       setResponse(htmlResponse);
     } catch (err) {
       setError("Erro ao gerar sugestão. Tente novamente.");
@@ -121,25 +180,65 @@ Lembre-se: Esta é uma sugestão educativa. Sempre consulte profissionais de sa�
     <div className="flex flex-col h-full">
       {/* Header */}
       <div className="border-b p-4 bg-background">
-        <div className="flex items-center justify-between">
-          <div>
-            <h2 className="text-lg font-semibold text-pharma-dark">
-              Assistente Maromba
-            </h2>
-            <p className="text-sm text-muted-foreground">
-              Suas sugestões personalizadas estão prontas!
-            </p>
+          <div className="flex items-center justify-between">
+            <div>
+              <h2 className="text-lg font-semibold text-foreground">
+                Assistente Maromba
+              </h2>
+              <p className="text-sm text-muted-foreground">
+                {apiKey ? "IA Gemini ativada" : "Modo simulação ativa"}
+              </p>
+            </div>
+            <div className="flex gap-2">
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => setShowApiKeyInput(!showApiKeyInput)}
+                className="gap-2"
+              >
+                <Settings className="h-4 w-4" />
+                {apiKey ? "Configurado" : "Configurar IA"}
+              </Button>
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={onNewConsultation}
+                className="gap-2"
+              >
+                <RotateCcw className="h-4 w-4" />
+                Nova Consulta
+              </Button>
+            </div>
           </div>
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={onNewConsultation}
-            className="gap-2"
-          >
-            <RotateCcw className="h-4 w-4" />
-            Nova Consulta
-          </Button>
-        </div>
+          
+          {/* API Key Input */}
+          {showApiKeyInput && (
+            <div className="mt-4 p-4 bg-muted rounded-lg space-y-3">
+              <Label htmlFor="apikey" className="text-sm font-medium">
+                Chave da API Gemini (opcional - para IA real)
+              </Label>
+              <div className="flex gap-2">
+                <Input
+                  id="apikey"
+                  type="password"
+                  placeholder="Cole sua API key do Google Gemini aqui..."
+                  value={apiKey}
+                  onChange={(e) => setApiKey(e.target.value)}
+                  className="flex-1"
+                />
+                <Button
+                  size="sm"
+                  onClick={() => setShowApiKeyInput(false)}
+                  disabled={!apiKey}
+                >
+                  Salvar
+                </Button>
+              </div>
+              <p className="text-xs text-muted-foreground">
+                Obtenha sua chave gratuita em: https://makersuite.google.com/app/apikey
+              </p>
+            </div>
+          )}
       </div>
 
       {/* Chat Area */}

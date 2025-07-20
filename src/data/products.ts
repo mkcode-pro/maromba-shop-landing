@@ -10,154 +10,167 @@ export interface Product {
 }
 
 export const products: Product[] = [
-  // Whey Protein
+  // Testosterona
   {
-    id: "whey-1",
-    name: "Whey Protein Premium 1kg",
-    description: "Proteína de alta qualidade para ganho de massa muscular",
-    image: "https://via.placeholder.com/300x300/3B82F6/FFFFFF?text=WHEY+1KG",
-    originalPrice: 89.90,
-    discountPrice: 69.90,
-    discountPercentage: 22,
-    category: "whey-protein"
+    id: "test-1",
+    name: "Enantato de Testosterona",
+    description: "250mg/ml - 10ml - Ampolas de vidro amber",
+    image: "https://via.placeholder.com/300x300/1F2937/FFFFFF?text=TEST+E",
+    originalPrice: 189.90,
+    discountPrice: 159.90,
+    discountPercentage: 16,
+    category: "testosterona"
   },
   {
-    id: "whey-2", 
-    name: "Whey Isolado Chocolate 2kg",
-    description: "Whey isolado com 90% de proteína, sabor chocolate",
-    image: "https://via.placeholder.com/300x300/3B82F6/FFFFFF?text=WHEY+ISO",
-    originalPrice: 159.90,
-    discountPrice: 129.90,
-    discountPercentage: 19,
-    category: "whey-protein"
+    id: "test-2", 
+    name: "Cipionato de Testosterona",
+    description: "200mg/ml - 10ml - Laboratório certificado",
+    image: "https://via.placeholder.com/300x300/1F2937/FFFFFF?text=TEST+C",
+    originalPrice: 179.90,
+    discountPrice: 149.90,
+    discountPercentage: 17,
+    category: "testosterona"
   },
   {
-    id: "whey-3",
-    name: "Whey Hidrolisado Baunilha",
-    description: "Absorção ultra rápida, ideal pós-treino",
-    image: "https://via.placeholder.com/300x300/3B82F6/FFFFFF?text=WHEY+H",
+    id: "test-3",
+    name: "Propionato de Testosterona",
+    description: "100mg/ml - 10ml - Ação rápida",
+    image: "https://via.placeholder.com/300x300/1F2937/FFFFFF?text=TEST+P",
+    originalPrice: 169.90,
+    discountPrice: 139.90,
+    discountPercentage: 18,
+    category: "testosterona"
+  },
+
+  // Orais
+  {
+    id: "oral-1",
+    name: "Oxandrolona",
+    description: "10mg - 100 comprimidos - Baixa hepatotoxicidade",
+    image: "https://via.placeholder.com/300x300/7C3AED/FFFFFF?text=OXAN",
+    originalPrice: 299.90,
+    discountPrice: 259.90,
+    discountPercentage: 13,
+    category: "orais"
+  },
+  {
+    id: "oral-2",
+    name: "Stanozolol",
+    description: "10mg - 100 tabs - Definição muscular",
+    image: "https://via.placeholder.com/300x300/7C3AED/FFFFFF?text=STAN",
+    originalPrice: 179.90,
+    discountPrice: 149.90,
+    discountPercentage: 17,
+    category: "orais"
+  },
+
+  // Trembolona
+  {
+    id: "tren-1",
+    name: "Acetato de Trembolona",
+    description: "100mg/ml - 10ml - Alta potência anabólica",
+    image: "https://via.placeholder.com/300x300/DC2626/FFFFFF?text=TREN+A",
+    originalPrice: 249.90,
+    discountPrice: 219.90,
+    discountPercentage: 12,
+    category: "trembolona"
+  },
+  {
+    id: "tren-2",
+    name: "Enantato de Trembolona",
+    description: "200mg/ml - 10ml - Liberação prolongada",
+    image: "https://via.placeholder.com/300x300/DC2626/FFFFFF?text=TREN+E",
+    originalPrice: 279.90,
+    discountPrice: 239.90,
+    discountPercentage: 14,
+    category: "trembolona"
+  },
+
+  // Nandrolona
+  {
+    id: "deca-1", 
+    name: "Decanoato de Nandrolona",
+    description: "250mg/ml - 10ml - Ganhos sólidos",
+    image: "https://via.placeholder.com/300x300/059669/FFFFFF?text=DECA",
     originalPrice: 199.90,
     discountPrice: 169.90,
     discountPercentage: 15,
-    category: "whey-protein"
+    category: "nandrolona"
+  },
+  {
+    id: "npp-1",
+    name: "Fenilpropionato de Nandrolona",
+    description: "100mg/ml - 10ml - Ação mais rápida",
+    image: "https://via.placeholder.com/300x300/059669/FFFFFF?text=NPP",
+    originalPrice: 189.90,
+    discountPrice: 159.90,
+    discountPercentage: 16,
+    category: "nandrolona"
   },
 
-  // Creatina
+  // Primobolan
   {
-    id: "creatina-1",
-    name: "Creatina Monohidratada 300g",
-    description: "Aumento de força e potência muscular",
-    image: "https://via.placeholder.com/300x300/10B981/FFFFFF?text=CREATINA",
-    originalPrice: 49.90,
-    discountPrice: 39.90,
-    discountPercentage: 20,
-    category: "creatina"
+    id: "primo-1",
+    name: "Enantato de Metenolona",
+    description: "100mg/ml - 10ml - Perfil seguro",
+    image: "https://via.placeholder.com/300x300/0891B2/FFFFFF?text=PRIMO",
+    originalPrice: 349.90,
+    discountPrice: 299.90,
+    discountPercentage: 14,
+    category: "primobolan"
+  },
+
+  // Dianabol
+  {
+    id: "dbol-1",
+    name: "Metandrostenolona",
+    description: "10mg - 100 tabs - Ganhos rápidos",
+    image: "https://via.placeholder.com/300x300/F59E0B/FFFFFF?text=DBOL",
+    originalPrice: 159.90,
+    discountPrice: 129.90,
+    discountPercentage: 19,
+    category: "dianabol"
+  },
+
+  // PCT e Proteções
+  {
+    id: "pct-1",
+    name: "Tamoxifeno",
+    description: "20mg - 100 tabs - Bloqueador estrogênico",
+    image: "https://via.placeholder.com/300x300/6B7280/FFFFFF?text=TAMOX",
+    originalPrice: 129.90,
+    discountPrice: 109.90,
+    discountPercentage: 15,
+    category: "pct"
   },
   {
-    id: "creatina-2",
-    name: "Creatina Creapure 500g",
-    description: "Creatina alemã de máxima pureza",
-    image: "https://via.placeholder.com/300x300/10B981/FFFFFF?text=CREAPURE",
-    originalPrice: 89.90,
-    discountPrice: 74.90,
+    id: "pct-2",
+    name: "Clomifeno",
+    description: "50mg - 50 tabs - Restaurador natural",
+    image: "https://via.placeholder.com/300x300/6B7280/FFFFFF?text=CLOMID",
+    originalPrice: 149.90,
+    discountPrice: 129.90,
+    discountPercentage: 13,
+    category: "pct"
+  },
+  {
+    id: "pct-3",
+    name: "Anastrozol",
+    description: "1mg - 50 tabs - Inibidor de aromatase",
+    image: "https://via.placeholder.com/300x300/6B7280/FFFFFF?text=ARIMID",
+    originalPrice: 179.90,
+    discountPrice: 149.90,
     discountPercentage: 17,
-    category: "creatina"
-  },
-
-  // Pré-Treino
-  {
-    id: "pre-1",
-    name: "Pré-Treino Explosive 300g",
-    description: "Máxima energia e foco para seus treinos",
-    image: "https://via.placeholder.com/300x300/F59E0B/FFFFFF?text=PRE+EXP",
-    originalPrice: 79.90,
-    discountPrice: 59.90,
-    discountPercentage: 25,
-    category: "pre-treino"
-  },
-  {
-    id: "pre-2",
-    name: "Pré-Treino Pump Formula",
-    description: "Vasodilatação extrema e pump muscular",
-    image: "https://via.placeholder.com/300x300/F59E0B/FFFFFF?text=PUMP",
-    originalPrice: 99.90,
-    discountPrice: 79.90,
-    discountPercentage: 20,
-    category: "pre-treino"
-  },
-
-  // Vitaminas  
-  {
-    id: "vit-1",
-    name: "Multivitamínico Complete",
-    description: "Complexo completo de vitaminas e minerais",
-    image: "https://via.placeholder.com/300x300/8B5CF6/FFFFFF?text=MULTI",
-    originalPrice: 59.90,
-    discountPrice: 44.90,
-    discountPercentage: 25,
-    category: "vitaminas"
-  },
-  {
-    id: "vit-2",
-    name: "Vitamina D3 2000UI",
-    description: "Fortalece ossos e sistema imunológico",
-    image: "https://via.placeholder.com/300x300/8B5CF6/FFFFFF?text=VIT+D3",
-    originalPrice: 39.90,
-    discountPrice: 29.90,
-    discountPercentage: 25,
-    category: "vitaminas"
-  },
-
-  // Aminoácidos
-  {
-    id: "amino-1", 
-    name: "BCAA 2:1:1 240 cápsulas",
-    description: "Recuperação muscular e anti-catabolismo",
-    image: "https://via.placeholder.com/300x300/EF4444/FFFFFF?text=BCAA",
-    originalPrice: 69.90,
-    discountPrice: 54.90,
-    discountPercentage: 21,
-    category: "aminoacidos"
-  },
-  {
-    id: "amino-2",
-    name: "Glutamina Powder 300g",
-    description: "Recuperação e fortalecimento imunológico",
-    image: "https://via.placeholder.com/300x300/EF4444/FFFFFF?text=GLUTA",
-    originalPrice: 49.90,
-    discountPrice: 39.90,
-    discountPercentage: 20,
-    category: "aminoacidos"
-  },
-
-  // Queimadores
-  {
-    id: "burn-1",
-    name: "Termogênico Fire 60 caps",
-    description: "Acelera metabolismo e queima gordura",
-    image: "https://via.placeholder.com/300x300/F97316/FFFFFF?text=FIRE",
-    originalPrice: 89.90,
-    discountPrice: 69.90,
-    discountPercentage: 22,
-    category: "queimadores"
-  },
-  {
-    id: "burn-2",
-    name: "L-Carnitina Liquid 500ml",
-    description: "Mobilização de gordura para energia",
-    image: "https://via.placeholder.com/300x300/F97316/FFFFFF?text=CARNI",
-    originalPrice: 59.90,
-    discountPrice: 47.90,
-    discountPercentage: 20,
-    category: "queimadores"
+    category: "pct"
   }
 ];
 
 export const categories = [
-  { id: "whey-protein", name: "Whey Protein", logo: "https://via.placeholder.com/120x60/3B82F6/FFFFFF?text=WHEY" },
-  { id: "creatina", name: "Creatina", logo: "https://via.placeholder.com/120x60/10B981/FFFFFF?text=CREATINA" },
-  { id: "pre-treino", name: "Pré-Treino", logo: "https://via.placeholder.com/120x60/F59E0B/FFFFFF?text=PRE-TREINO" },
-  { id: "vitaminas", name: "Vitaminas", logo: "https://via.placeholder.com/120x60/8B5CF6/FFFFFF?text=VITAMINAS" },
-  { id: "aminoacidos", name: "Aminoácidos", logo: "https://via.placeholder.com/120x60/EF4444/FFFFFF?text=AMINO" },
-  { id: "queimadores", name: "Queimadores", logo: "https://via.placeholder.com/120x60/F97316/FFFFFF?text=BURN" }
+  { id: "testosterona", name: "Testosterona", logo: "https://via.placeholder.com/120x60/1F2937/FFFFFF?text=TEST" },
+  { id: "orais", name: "Orais", logo: "https://via.placeholder.com/120x60/7C3AED/FFFFFF?text=ORAIS" },
+  { id: "trembolona", name: "Trembolona", logo: "https://via.placeholder.com/120x60/DC2626/FFFFFF?text=TREN" },
+  { id: "nandrolona", name: "Nandrolona", logo: "https://via.placeholder.com/120x60/059669/FFFFFF?text=DECA" },
+  { id: "primobolan", name: "Primobolan", logo: "https://via.placeholder.com/120x60/0891B2/FFFFFF?text=PRIMO" },
+  { id: "dianabol", name: "Dianabol", logo: "https://via.placeholder.com/120x60/F59E0B/FFFFFF?text=DBOL" },
+  { id: "pct", name: "PCT & Proteções", logo: "https://via.placeholder.com/120x60/6B7280/FFFFFF?text=PCT" }
 ];

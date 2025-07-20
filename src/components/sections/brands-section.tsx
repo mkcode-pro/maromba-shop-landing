@@ -2,34 +2,34 @@ import { BrandCard } from "@/components/ui/brand-card";
 
 const brands = [
   {
-    id: "whey-protein",
-    name: "Whey Protein",
-    logo: "https://via.placeholder.com/120x60/3B82F6/FFFFFF?text=WHEY"
+    id: "testosterona",
+    name: "Testosterona",
+    logo: "https://via.placeholder.com/120x60/1F2937/FFFFFF?text=TEST"
   },
   {
-    id: "creatina", 
-    name: "Creatina",
-    logo: "https://via.placeholder.com/120x60/10B981/FFFFFF?text=CREATINA"
+    id: "orais", 
+    name: "Orais",
+    logo: "https://via.placeholder.com/120x60/7C3AED/FFFFFF?text=ORAIS"
   },
   {
-    id: "pre-treino",
-    name: "Pré-Treino", 
-    logo: "https://via.placeholder.com/120x60/F59E0B/FFFFFF?text=PRE-TREINO"
+    id: "trembolona",
+    name: "Trembolona", 
+    logo: "https://via.placeholder.com/120x60/DC2626/FFFFFF?text=TREN"
   },
   {
-    id: "vitaminas",
-    name: "Vitaminas",
-    logo: "https://via.placeholder.com/120x60/8B5CF6/FFFFFF?text=VITAMINAS"
+    id: "nandrolona",
+    name: "Nandrolona",
+    logo: "https://via.placeholder.com/120x60/059669/FFFFFF?text=DECA"
   },
   {
-    id: "aminoacidos",
-    name: "Aminoácidos",
-    logo: "https://via.placeholder.com/120x60/EF4444/FFFFFF?text=AMINO"
+    id: "primobolan",
+    name: "Primobolan",
+    logo: "https://via.placeholder.com/120x60/0891B2/FFFFFF?text=PRIMO"
   },
   {
-    id: "queimadores",
-    name: "Queimadores",
-    logo: "https://via.placeholder.com/120x60/F97316/FFFFFF?text=BURN"
+    id: "pct",
+    name: "PCT & Proteções",
+    logo: "https://via.placeholder.com/120x60/6B7280/FFFFFF?text=PCT"
   }
 ];
 
@@ -48,11 +48,11 @@ export function BrandsSection() {
     <section className="py-12 px-4 bg-pharma-light">
       <div className="container mx-auto">
         <div className="text-center mb-8">
-          <h2 className="text-2xl md:text-3xl font-bold text-pharma-dark mb-2">
-            Navegue por Categorias
+          <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-2">
+            Laboratórios Certificados
           </h2>
           <p className="text-muted-foreground">
-            Encontre os melhores produtos para seus objetivos
+            Produtos de qualidade farmacêutica para protocolos profissionais
           </p>
         </div>
 

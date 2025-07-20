@@ -55,46 +55,67 @@ export function TermsStep({ onAccept }: TermsStepProps) {
   const termsText = `
 TERMO DE RESPONSABILIDADE E ISENÇÃO DE RESPONSABILIDADE
 
+ASSISTENTE ESPECIALIZADO EM PROTOCOLOS ERGOGÊNICOS
+
 LEIA ATENTAMENTE ANTES DE PROSSEGUIR
 
-1. NATUREZA EDUCACIONAL
-As informações fornecidas pelo Assistente Maromba têm caráter exclusivamente educacional e informativo. Não constituem prescrição médica, recomendação terapêutica ou orientação profissional de saúde.
+1. NATUREZA ESTRITAMENTE EDUCACIONAL
+As informações fornecidas pelo Assistente Maromba têm caráter exclusivamente educacional e científico sobre protocolos ergogênicos e anabolizantes. NÃO constituem prescrição médica, recomendação terapêutica ou orientação profissional de saúde.
 
-2. CONSULTA MÉDICA OBRIGATÓRIA
-Antes de iniciar qualquer protocolo, suplementação ou alteração em sua rotina de treinamento, é OBRIGATÓRIO consultar um médico especialista. Apenas profissionais de saúde qualificados podem avaliar sua condição individual e prescrever tratamentos adequados.
+2. CONSULTA MÉDICA ESPECIALIZADA OBRIGATÓRIA
+Antes de iniciar qualquer protocolo, ciclo ou administração de substâncias ergogênicas, é OBRIGATÓRIO consultar um médico endocrinologista especializado em medicina esportiva. Apenas profissionais médicos qualificados podem:
+- Avaliar sua condição hormonal atual
+- Prescrever protocolos adequados ao seu perfil
+- Monitorar sua saúde durante os ciclos
+- Prescrever terapias pós-ciclo (PCT) apropriadas
 
-3. RISCOS À SAÚDE
-O uso inadequado de substâncias pode causar:
-- Alterações hormonais graves
-- Danos hepáticos e cardiovasculares
-- Efeitos colaterais permanentes
-- Complicações de saúde sérias
-- Risco de vida em casos extremos
+3. RISCOS GRAVES À SAÚDE
+O uso inadequado de substâncias anabolizantes pode causar:
+- Supressão permanente da produção hormonal natural
+- Danos hepáticos irreversíveis (hepatotoxicidade)
+- Problemas cardiovasculares graves (hipertensão, alterações lipídicas)
+- Alterações comportamentais (agressividade, depressão)
+- Efeitos androgênicos indesejados (virilização em mulheres)
+- Ginecomastia e atrofia testicular em homens
+- Infertilidade temporária ou permanente
+- Risco de morte em casos de overdose ou reações adversas
 
-4. RESPONSABILIDADE INDIVIDUAL
-Você reconhece e aceita que:
-- É totalmente responsável por suas decisões e ações
-- O Império Farma não se responsabiliza por consequências do uso das informações
-- As sugestões não substituem orientação médica profissional
-- Você está ciente dos riscos envolvidos
+4. RESPONSABILIDADE INDIVIDUAL TOTAL
+Você reconhece e aceita expressamente que:
+- É TOTALMENTE responsável por suas decisões e ações
+- O Império Farma NÃO se responsabiliza por QUALQUER consequência do uso das informações
+- As sugestões são meramente informativas e NÃO substituem orientação médica
+- Você assume TODOS os riscos envolvidos no uso de substâncias ergogênicas
+- Compreende que ciclos mal planejados podem causar danos irreversíveis
 
-5. MAIORIDADE E CAPACIDADE
-Ao prosseguir, você declara:
-- Ser maior de 18 anos
-- Ter plena capacidade civil
-- Compreender totalmente este termo
+5. MAIORIDADE E CAPACIDADE LEGAL
+Ao prosseguir, você declara sob responsabilidade civil e criminal:
+- Ser maior de 21 anos
+- Ter plena capacidade civil e mental
+- Compreender totalmente os riscos envolvidos
+- Não estar sob efeito de substâncias que alterem seu julgamento
 
-6. ISENÇÃO DE RESPONSABILIDADE
-O Império Farma, seus proprietários, funcionários e afiliados ficam completamente isentos de qualquer responsabilidade por:
-- Danos à saúde decorrentes do uso das informações
-- Resultados obtidos ou não obtidos
-- Efeitos colaterais ou complicações
-- Decisões tomadas com base nas informações fornecidas
+6. ISENÇÃO TOTAL DE RESPONSABILIDADE
+O Império Farma, seus proprietários, funcionários, desenvolvedores e afiliados ficam COMPLETAMENTE ISENTOS de qualquer responsabilidade por:
+- Danos físicos, mentais ou hormonais decorrentes do uso das informações
+- Resultados obtidos ou não obtidos com os protocolos sugeridos
+- Efeitos colaterais, complicações médicas ou emergências de saúde
+- Decisões tomadas com base nas informações do assistente
+- Problemas legais relacionados à posse ou uso de substâncias controladas
 
-7. USO POR SUA CONTA E RISCO
-Ao aceitar este termo, você reconhece que utiliza as informações por sua conta e risco, assumindo total responsabilidade pelas consequências.
+7. USO EXCLUSIVAMENTE POR CONTA E RISCO
+Ao aceitar este termo, você reconhece que utiliza as informações EXCLUSIVAMENTE por sua conta e risco, assumindo TOTAL e IRRESTRITA responsabilidade por todas as consequências.
 
-ATENÇÃO: Este assistente NÃO substitui acompanhamento médico. Procure sempre orientação profissional antes de tomar qualquer decisão relacionada à sua saúde.
+8. LEGALIDADE E REGULAMENTAÇÃO
+Você declara estar ciente de que:
+- Muitas substâncias ergogênicas são controladas pela ANVISA
+- A posse e uso podem ter implicações legais
+- É sua responsabilidade conhecer e respeitar as leis locais
+- O Império Farma não incentiva atividades ilegais
+
+ATENÇÃO CRÍTICA: Este assistente NÃO substitui acompanhamento médico especializado. Procure SEMPRE orientação de um endocrinologista antes de tomar qualquer decisão relacionada ao uso de substâncias ergogênicas.
+
+A medicina esportiva é uma especialidade complexa que requer supervisão profissional rigorosa.
   `;
 
   return (
